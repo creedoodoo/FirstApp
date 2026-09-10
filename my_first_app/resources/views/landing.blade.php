@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Verdant Technologies — Official Portal</title>
+    <title>Cuatro Marias — PUP Santa Rosa Campus</title>
 
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,9 +47,135 @@
         body {
             font-family: var(--font-family);
             background-color: var(--color-ghost-white);
+            background-image: 
+                linear-gradient(to right, rgba(140, 13, 71, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(140, 13, 71, 0.035) 1px, transparent 1px);
+            background-size: 36px 36px;
             color: var(--color-dark);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* Idle Floating Organic Background Shapes Container */
+        .dash-art-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .dash-shape {
+            position: absolute;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        /* Soft Blurred Circle 1 (Top Left) */
+        .dash-blob-1 {
+            top: 6%;
+            left: 2%;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(140, 13, 71, 0.12) 0%, rgba(140, 13, 71, 0.03) 70%, transparent 100%);
+            border-radius: 50%;
+            filter: blur(14px);
+            animation: dashFloat1 14s ease-in-out infinite alternate;
+        }
+
+        /* Floating Glass Square (Top Right) */
+        .dash-square-1 {
+            top: 12%;
+            right: 4%;
+            width: 86px;
+            height: 86px;
+            background: linear-gradient(135deg, rgba(140, 13, 71, 0.12), rgba(140, 13, 71, 0.04));
+            border: 1px solid rgba(140, 13, 71, 0.18);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(140, 13, 71, 0.06);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            transform: rotate(14deg);
+            animation: dashFloat2 10s ease-in-out infinite alternate;
+        }
+
+        /* Capsule / Pill Shape 1 (Middle Left) */
+        .dash-capsule-1 {
+            top: 45%;
+            left: 2%;
+            width: 90px;
+            height: 34px;
+            background: linear-gradient(135deg, rgba(140, 13, 71, 0.14), rgba(140, 13, 71, 0.04));
+            border: 1px solid rgba(140, 13, 71, 0.16);
+            border-radius: 9999px;
+            transform: rotate(-20deg);
+            animation: dashFloat3 12s ease-in-out infinite alternate;
+        }
+
+        /* Sparkle / Splat Accent (Middle Right) */
+        .dash-splat-1 {
+            top: 55%;
+            right: 3%;
+            width: 42px;
+            height: 42px;
+            animation: dashFloat4 8s ease-in-out infinite alternate;
+        }
+
+        /* Soft Blurred Circle 2 (Bottom Right) */
+        .dash-blob-2 {
+            bottom: 8%;
+            right: 5%;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(140, 13, 71, 0.1) 0%, rgba(140, 13, 71, 0.02) 70%, transparent 100%);
+            border-radius: 50%;
+            filter: blur(18px);
+            animation: dashFloat1 18s ease-in-out infinite alternate-reverse;
+        }
+
+        /* Capsule / Pill Shape 2 (Bottom Left) */
+        .dash-capsule-2 {
+            bottom: 12%;
+            left: 5%;
+            width: 65px;
+            height: 26px;
+            background: rgba(140, 13, 71, 0.1);
+            border: 1px solid rgba(140, 13, 71, 0.14);
+            border-radius: 9999px;
+            transform: rotate(30deg);
+            animation: dashFloat3 15s ease-in-out infinite alternate-reverse;
+        }
+
+        /* Idle Floating Keyframes */
+        @keyframes dashFloat1 {
+            0% { transform: translate3d(0, 0, 0) scale(1); }
+            100% { transform: translate3d(18px, -22px, 0) scale(1.05); }
+        }
+
+        @keyframes dashFloat2 {
+            0% { transform: translate3d(0, 0, 0) rotate(14deg); }
+            100% { transform: translate3d(-14px, -18px, 0) rotate(22deg); }
+        }
+
+        @keyframes dashFloat3 {
+            0% { transform: translate3d(0, 0, 0) rotate(-20deg); }
+            100% { transform: translate3d(12px, -16px, 0) rotate(-10deg); }
+        }
+
+        @keyframes dashFloat4 {
+            0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            100% { transform: translate3d(-10px, -12px, 0) rotate(36deg); }
+        }
+
+        /* Reduced Motion Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .dash-shape {
+                animation: none !important;
+            }
         }
 
         /* Glassmorphism Fixed Header Navigation Bar */
@@ -344,55 +470,179 @@
 
         .btn-hero-secondary:hover {
             background-color: #F9FAFB;
-        }
-
-        /* Blank Image Template Component */
-        .image-template {
-            background-color: #E5E7EB;
-            border: 2px dashed #CBD5E1;
-            border-radius: var(--radius-xl);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #64748B;
-            padding: 3rem 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .image-template-hero {
+        }        /* Real Image & Location Card Styling */
+        .hero-banner-wrap {
             width: 100%;
             height: 400px;
             max-width: 960px;
             margin: 0 auto;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
+            border: 1px solid var(--color-border);
+            background-color: #F3F4F6;
         }
 
-        .image-template-card {
+        .hero-banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .about-img-wrap {
+            width: 100%;
+            height: 380px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--color-border);
+            background-color: #F3F4F6;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .solution-img-wrap {
             width: 100%;
             height: 220px;
             margin-bottom: 1.25rem;
             border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            background-color: #F3F4F6;
         }
 
-        .image-template-about {
+        .solution-img {
             width: 100%;
-            height: 380px;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
         }
 
-        .template-icon {
-            width: 48px;
-            height: 48px;
-            stroke: #94A3B8;
-            stroke-width: 1.5;
-            fill: none;
+        .solution-card:hover .solution-img {
+            transform: scale(1.05);
+        }
+
+        /* Map Location Card */
+        .map-card {
+            height: 100%;
+            min-height: 340px;
+            background: linear-gradient(135deg, #FBF0F5 0%, #FFFFFF 100%);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             margin-bottom: 0.75rem;
         }
 
-        .template-text {
-            font-size: 0.875rem;
+        .map-card-icon {
+            width: 42px;
+            height: 42px;
+            background-color: var(--color-jade-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-jade);
+            flex-shrink: 0;
+        }
+
+        .map-card-title {
+            font-size: 1.0625rem;
+            font-weight: 700;
+            color: var(--color-dark);
+        }
+
+        .map-card-subtitle {
+            font-size: 0.8125rem;
+            color: var(--color-muted);
+        }
+
+        .map-img-link {
+            display: block;
+            text-decoration: none;
+        }
+
+        .map-preview-wrap {
+            width: 100%;
+            height: 200px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin: 1rem 0;
+            border: 1px solid var(--color-border);
+            position: relative;
+            background: #E5E7EB;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .map-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.4s ease;
+        }
+
+        .map-img-link:hover .map-img {
+            transform: scale(1.04);
+        }
+
+        .map-overlay-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(140, 13, 71, 0.9);
+            color: #FFFFFF;
+            font-size: 0.75rem;
             font-weight: 600;
-            color: #64748B;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-map-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            background-color: var(--color-jade);
+            color: var(--color-white);
+            font-weight: 600;
+            font-size: 0.9375rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 14px rgba(140, 13, 71, 0.2);
+        }
+
+        .btn-map-link:hover {
+            background-color: var(--color-jade-hover);
+            transform: translateY(-2px);
+            color: var(--color-white);
+        }      color: #64748B;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
@@ -467,6 +717,106 @@
             font-size: 0.9375rem;
             color: var(--color-muted);
             line-height: 1.6;
+        }
+
+        /* Meet the Team Section */
+        .team-header {
+            text-align: center;
+            max-width: 620px;
+            margin: 0 auto 3rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            align-items: stretch;
+        }
+
+        .team-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: 1.25rem 1rem;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .team-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .team-img-wrap {
+            width: 100%;
+            height: 240px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 1.125rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--color-border);
+            background-color: #F3F4F6;
+        }
+
+        .team-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .team-card:hover .team-img-wrap img {
+            transform: scale(1.05);
+        }
+
+        .team-info-wrap {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: flex-start;
+        }
+
+        .team-name {
+            font-size: 1.0625rem;
+            font-weight: 700;
+            color: var(--color-dark);
+            margin-bottom: 0.25rem;
+            height: 2.8rem;
+            min-height: 2.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .team-role {
+            font-size: 0.8125rem;
+            color: var(--color-jade);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            min-height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        @media (max-width: 992px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Interactive Trial Limiter Section */
@@ -621,6 +971,28 @@
     </style>
 </head>
 <body>
+    <!-- Idle Floating Organic Background Shapes Container -->
+    <div class="dash-art-container" aria-hidden="true">
+        <!-- Soft Blurred Circle 1 (Top Left) -->
+        <div class="dash-shape dash-blob-1"></div>
+
+        <!-- Floating Glass Square (Top Right) -->
+        <div class="dash-shape dash-square-1"></div>
+
+        <!-- Capsule / Pill Shape 1 (Middle Left) -->
+        <div class="dash-shape dash-capsule-1"></div>
+
+        <!-- Sparkle / Splat Accent (Middle Right) -->
+        <svg class="dash-shape dash-splat-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path fill="rgba(140, 13, 71, 0.18)" d="M50 0 C53 35 65 47 100 50 C65 53 53 65 50 100 C47 65 35 53 0 50 C35 47 47 35 50 0 Z" />
+        </svg>
+
+        <!-- Soft Blurred Circle 2 (Bottom Right) -->
+        <div class="dash-shape dash-blob-2"></div>
+
+        <!-- Capsule / Pill Shape 2 (Bottom Left) -->
+        <div class="dash-shape dash-capsule-2"></div>
+    </div>
     <!-- Glassmorphism Fixed Top Navigation Header Bar -->
     <header class="navbar">
         <div class="nav-left">
@@ -630,13 +1002,14 @@
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                 </div>
-                <span>Verdant</span>
+                <span>Cuatro Marias</span>
             </a>
 
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#solutions" class="nav-link">Solutions</a></li>
+                <li><a href="#team" class="nav-link">Team</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
@@ -675,25 +1048,20 @@
 
     <!-- Hero Section -->
     <section id="home" class="section hero-section">
-        <span class="hero-badge">Next-Generation Enterprise Platform</span>
-        <h1 class="hero-title">Empowering Modern Teams with Intelligent Automation</h1>
+        <span class="hero-badge">PUP Santa Rosa Campus Student Organization</span>
+        <h1 class="hero-title">Cuatro Marias Student Organization</h1>
         <p class="hero-paragraph">
-            Verdant delivers high-performance infrastructure designed to streamline digital workflows, enhance team collaboration, and accelerate scalable corporate growth.
+            Official student organization at the Polytechnic University of the Philippines — Santa Rosa Campus dedicated to technical excellence, student leadership, and digital innovation.
         </p>
 
         <div class="hero-cta">
-            <a href="#solutions" class="btn-hero-primary">Explore Solutions</a>
+            <a href="#team" class="btn-hero-primary">Meet the Team</a>
             <a href="#about" class="btn-hero-secondary">Learn More</a>
         </div>
 
-        <!-- Blank Image Template: Hero Banner -->
-        <div class="image-template image-template-hero">
-            <svg class="template-icon" viewBox="0 0 24 24">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-            </svg>
-            <span class="template-text">[ Company Hero Banner Placeholder — 960x400 ]</span>
+        <!-- Hero Banner Image -->
+        <div class="hero-banner-wrap">
+            <img src="{{ asset('images/hero-banner.png') }}" alt="Cuatro Marias Hero Banner - PUP Santa Rosa Campus" class="hero-banner-img">
         </div>
     </section>
 
@@ -701,24 +1069,19 @@
     <section id="about" class="section">
         <div class="about-grid">
             <div class="about-text">
-                <span class="section-tag">About Verdant</span>
-                <h2 class="section-title">Built on Innovation and Absolute Reliability</h2>
+                <span class="section-tag">About Cuatro Marias</span>
+                <h2 class="section-title">Polytechnic University of the Philippines — Santa Rosa Campus</h2>
                 <p>
-                    Founded with a vision to redefine enterprise technology, Verdant equips organizations with intuitive solutions engineered to solve complex operational challenges.
+                    Founded at the Polytechnic University of the Philippines — Santa Rosa Campus, Cuatro Marias equips students with practical technical skills, innovative web projects, and leadership experience.
                 </p>
                 <p>
-                    Our platform integrates modern architecture with industry-leading reliability, providing your teams with the agility needed to succeed in an evolving marketplace.
+                    Our student organization fosters collaboration, continuous learning, and digital solutions engineered to empower the student body and academic community.
                 </p>
             </div>
 
-            <!-- Blank Image Template: About Us -->
-            <div class="image-template image-template-about">
-                <svg class="template-icon" viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                    <polyline points="21 15 16 10 5 21"></polyline>
-                </svg>
-                <span class="template-text">[ About Us Image Template — 500x380 ]</span>
+            <!-- About Us Image -->
+            <div class="about-img-wrap">
+                <img src="{{ asset('images/about-us.jpg') }}" alt="About Cuatro Marias - PUP Santa Rosa Campus" class="about-img">
             </div>
         </div>
     </section>
@@ -733,45 +1096,81 @@
 
         <div class="solutions-grid">
             <div class="solution-card">
-                <!-- Blank Image Template: Feature 1 -->
-                <div class="image-template image-template-card">
-                    <svg class="template-icon" viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                        <polyline points="21 15 16 10 5 21"></polyline>
-                    </svg>
-                    <span class="template-text">[ Feature Template — 360x220 ]</span>
+                <!-- Solution Image 1 -->
+                <div class="solution-img-wrap">
+                    <img src="{{ asset('images/solution1.jpg') }}" alt="Cloud Infrastructure" class="solution-img">
                 </div>
                 <h3 class="card-title">Cloud Infrastructure</h3>
                 <p class="card-desc">Scalable, high-availability server architecture engineered to handle workload demands with minimal latency.</p>
             </div>
 
             <div class="solution-card">
-                <!-- Blank Image Template: Feature 2 -->
-                <div class="image-template image-template-card">
-                    <svg class="template-icon" viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                        <polyline points="21 15 16 10 5 21"></polyline>
-                    </svg>
-                    <span class="template-text">[ Feature Template — 360x220 ]</span>
+                <!-- Solution Image 2 -->
+                <div class="solution-img-wrap">
+                    <img src="{{ asset('images/solution2.jpg') }}" alt="Automated Workflows" class="solution-img">
                 </div>
                 <h3 class="card-title">Automated Workflows</h3>
                 <p class="card-desc">Eliminate manual processes with intelligent automation tools designed to optimize productivity across teams.</p>
             </div>
 
             <div class="solution-card">
-                <!-- Blank Image Template: Feature 3 -->
-                <div class="image-template image-template-card">
-                    <svg class="template-icon" viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                        <polyline points="21 15 16 10 5 21"></polyline>
-                    </svg>
-                    <span class="template-text">[ Feature Template — 360x220 ]</span>
+                <!-- Solution Image 3 -->
+                <div class="solution-img-wrap">
+                    <img src="{{ asset('images/solution3.jpg') }}" alt="Data Intelligence" class="solution-img">
                 </div>
                 <h3 class="card-title">Data Intelligence</h3>
                 <p class="card-desc">Gain actionable insights with real-time analytics dashboards tailored to your organization's key metrics.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Team Section -->
+    <section id="team" class="section">
+        <div class="team-header">
+            <span class="section-tag">Leadership & Vision</span>
+            <h2 class="section-title">Meet the Team</h2>
+            <p style="color: var(--color-muted);">The passionate student leaders driving Cuatro Marias forward at PUP Santa Rosa Campus.</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-img-wrap">
+                    <img src="{{ asset('images/team/member1.png') }}" alt="Angelo Castroverde - Project Manager">
+                </div>
+                <div class="team-info-wrap">
+                    <h3 class="team-name">Angelo<br>Castroverde</h3>
+                    <div class="team-role">Project Manager</div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-wrap">
+                    <img src="{{ asset('images/team/member2.png') }}" alt="Chazlene Bacay - UI/UX Designer">
+                </div>
+                <div class="team-info-wrap">
+                    <h3 class="team-name">Chazlene<br>Bacay</h3>
+                    <div class="team-role">UI/UX Designer</div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-wrap">
+                    <img src="{{ asset('images/team/member3.png') }}" alt="Johnrey Aborot - Frontend Developer">
+                </div>
+                <div class="team-info-wrap">
+                    <h3 class="team-name">Johnrey<br>Aborot</h3>
+                    <div class="team-role">Frontend Developer</div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-img-wrap">
+                    <img src="{{ asset('images/team/member4.png') }}" alt="Alexia Eunice Patulot - Documentation Specialist">
+                </div>
+                <div class="team-info-wrap">
+                    <h3 class="team-name">Alexia Eunice<br>Patulot</h3>
+                    <div class="team-role">Documentation Specialist</div>
+                </div>
             </div>
         </div>
     </section>
@@ -816,39 +1215,60 @@
             <div class="contact-info-card">
                 <span class="section-tag">Get In Touch</span>
                 <h2 class="section-title">Contact Our Team</h2>
-                <p style="color: var(--color-muted); margin-bottom: 2rem;">Have questions about our solutions? Reach out to our dedicated support representatives.</p>
+                <p style="color: var(--color-muted); margin-bottom: 2rem;">Have questions about Cuatro Marias? Reach out to our student organization representatives.</p>
 
                 <div class="contact-detail">
                     <div class="contact-detail-label">Headquarters</div>
-                    <div class="contact-detail-val">100 Tech Plaza, Suite 400, Innovation District</div>
+                    <div class="contact-detail-val">Polytechnic University of the Philippines — Santa Rosa Campus</div>
                 </div>
 
                 <div class="contact-detail">
                     <div class="contact-detail-label">Email Inquiries</div>
-                    <div class="contact-detail-val">contact@verdant-tech.com</div>
+                    <div class="contact-detail-val">cuatromarias@pupsantarosa.edu.ph</div>
                 </div>
 
                 <div class="contact-detail">
-                    <div class="contact-detail-label">Customer Support</div>
-                    <div class="contact-detail-val">+1 (800) 555-0199</div>
+                    <div class="contact-detail-label">Campus Location</div>
+                    <div class="contact-detail-val">Santa Rosa, Laguna, Philippines</div>
                 </div>
             </div>
 
-            <!-- Blank Image Template: Map / Contact Placeholder -->
-            <div class="image-template" style="height: 100%; min-height: 320px;">
-                <svg class="template-icon" viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                    <polyline points="21 15 16 10 5 21"></polyline>
-                </svg>
-                <span class="template-text">[ Office Location & Map Image Template ]</span>
+            <!-- Interactive PUP Santa Rosa Campus Location & Map Card -->
+            <div class="map-card">
+                <div>
+                    <div class="map-card-header">
+                        <div class="map-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div>
+                            <div class="map-card-title">PUP Santa Rosa Campus</div>
+                            <div class="map-card-subtitle">Official Campus Location & Directions</div>
+                        </div>
+                    </div>
+
+                    <!-- Map Image with Overlay Badge -->
+                    <a href="https://share.google/x8I0JVgaJzuySv7sf" target="_blank" rel="noopener noreferrer" class="map-img-link" title="Open PUP Santa Rosa Location in Google Maps">
+                        <div class="map-preview-wrap">
+                            <img src="{{ asset('images/pupsrc-map.png') }}" alt="Polytechnic University of the Philippines Santa Rosa Campus Map" class="map-img">
+                            <div class="map-overlay-badge">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                                <span>Click to Navigate</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <a href="https://share.google/x8I0JVgaJzuySv7sf" target="_blank" rel="noopener noreferrer" class="btn-map-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                    Open PUP Santa Rosa Location in Google Maps
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; {{ date('Y') }} Verdant Technologies Inc. All rights reserved. Empowering modern workflows.</p>
+        <p>&copy; {{ date('Y') }} Cuatro Marias — PUP Santa Rosa Campus. All rights reserved.</p>
     </footer>
 
     <!-- Interactive Scripts -->

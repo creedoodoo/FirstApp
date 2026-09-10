@@ -59,7 +59,7 @@
             height: 100vh;
         }
 
-        /* Left Panel - Branding */
+        /* Left Panel - Branding & Organic Art Canvas */
         .branding-panel {
             flex: 1;
             background-color: var(--color-jade);
@@ -70,6 +70,127 @@
             align-items: center;
             padding: 2rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Abstract Flowy Organic Shapes Container */
+        .bg-art-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .branding-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .organic-shape {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* Large Blob 1 */
+        .blob-1 {
+            top: -15%;
+            left: -15%;
+            width: 480px;
+            height: 480px;
+            filter: blur(12px);
+            animation: floatBlob1 18s ease-in-out infinite alternate;
+        }
+
+        /* Large Blob 2 */
+        .blob-2 {
+            bottom: -20%;
+            right: -15%;
+            width: 520px;
+            height: 520px;
+            filter: blur(16px);
+            animation: floatBlob2 22s ease-in-out infinite alternate;
+        }
+
+        /* Floating Soft Rounded Square with Drop Shadow */
+        .floating-square {
+            top: 18%;
+            right: 10%;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transform: rotate(14deg);
+            animation: floatSquare 14s ease-in-out infinite alternate;
+        }
+
+        /* Capsule / Pill Shapes */
+        .capsule-shape {
+            bottom: 22%;
+            left: 10%;
+            width: 130px;
+            height: 46px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 9999px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transform: rotate(-22deg);
+            animation: floatCapsule 12s ease-in-out infinite alternate;
+        }
+
+        .capsule-shape-2 {
+            top: 14%;
+            left: 32%;
+            width: 76px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+            transform: rotate(35deg);
+            animation: floatCapsule 16s ease-in-out infinite alternate-reverse;
+        }
+
+        /* Star / Splat Accent Shape */
+        .star-splat {
+            top: 66%;
+            right: 22%;
+            width: 54px;
+            height: 54px;
+            animation: floatStar 10s ease-in-out infinite alternate;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.1));
+        }
+
+        @keyframes floatBlob1 {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            100% { transform: translate(30px, 25px) rotate(15deg) scale(1.08); }
+        }
+
+        @keyframes floatBlob2 {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            100% { transform: translate(-35px, -20px) rotate(-18deg) scale(1.05); }
+        }
+
+        @keyframes floatSquare {
+            0% { transform: translateY(0) rotate(14deg); }
+            100% { transform: translateY(-18px) rotate(22deg); }
+        }
+
+        @keyframes floatCapsule {
+            0% { transform: translateY(0) rotate(-22deg); }
+            100% { transform: translateY(-14px) rotate(-14deg); }
+        }
+
+        @keyframes floatStar {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            100% { transform: translateY(-10px) rotate(45deg) scale(1.15); }
         }
 
         .brand-logo-large {
@@ -126,11 +247,11 @@
         .form-container {
             width: 100%;
             max-width: 380px;
-            background-color: var(--color-white);
-            padding: 1.75rem 2rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--color-border);
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
             transition: var(--transition);
         }
 
@@ -362,7 +483,7 @@
 
             .branding-panel {
                 flex: none;
-                padding: 1.75rem 1.25rem;
+                padding: 2.5rem 1.25rem;
             }
 
             .form-panel {
@@ -371,28 +492,56 @@
             }
 
             .form-container {
-                padding: 1.5rem 1.25rem;
+                padding: 0;
                 box-shadow: none;
-                border: 1px solid var(--color-border);
+                border: none;
             }
         }
     </style>
 </head>
 <body>
     <div class="auth-wrapper">
-        <!-- Left Panel: Branding -->
+        <!-- Left Panel: Branding & Abstract Organic Art Canvas -->
         <section class="branding-panel">
-            <div class="brand-logo-large">
-                <div class="brand-icon-large">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
-                </div>
-                <span>Verdant</span>
+            <!-- Organic Flowy Background Art Shapes -->
+            <div class="bg-art-container" aria-hidden="true">
+                <!-- Large Blob 1 -->
+                <svg class="organic-shape blob-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="rgba(255, 255, 255, 0.18)" d="M44.7,-59.4C57.2,-49.8,66.1,-35.1,70.3,-19.1C74.6,-3.1,74.2,14.2,67.3,28.8C60.4,43.4,47,55.3,31.7,62.8C16.4,70.3,-0.8,73.4,-18.2,70.4C-35.6,67.4,-53.2,58.3,-64.1,43.8C-75,29.3,-79.2,9.4,-76.3,-9.1C-73.4,-27.6,-63.4,-44.7,-49.2,-54.6C-35,-64.5,-17.5,-67.2,-0.1,-67.1C17.3,-67,32.2,-69,44.7,-59.4Z" transform="translate(100 100)" />
+                </svg>
+
+                <!-- Large Blob 2 -->
+                <svg class="organic-shape blob-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="rgba(255, 255, 255, 0.12)" d="M39.9,-54.2C51.9,-44.6,61.9,-32.2,66.3,-17.9C70.7,-3.6,69.5,12.6,63.1,26.8C56.7,41,45.1,53.2,31.2,60.8C17.3,68.4,1.1,71.4,-15.8,69.2C-32.7,67,-50.3,59.6,-61.2,46.2C-72.1,32.8,-76.3,13.4,-74.6,-5C-72.9,-23.4,-65.3,-40.8,-52.3,-50.8C-39.3,-60.8,-20.9,-63.4,-3.6,-58.4C13.7,-53.4,27.9,-63.8,39.9,-54.2Z" transform="translate(100 100)" />
+                </svg>
+
+                <!-- Floating Soft Rounded Square with Drop Shadow -->
+                <div class="organic-shape floating-square"></div>
+
+                <!-- Capsule / Pill Shapes -->
+                <div class="organic-shape capsule-shape"></div>
+                <div class="organic-shape capsule-shape-2"></div>
+
+                <!-- Star / Splat Accent SVG Shape -->
+                <svg class="organic-shape star-splat" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="rgba(255, 255, 255, 0.28)" d="M50 0 C53 35 65 47 100 50 C65 53 53 65 50 100 C47 65 35 53 0 50 C35 47 47 35 50 0 Z" />
+                </svg>
             </div>
-            <p class="branding-tagline">
-                Empowering your digital workflow with seamless performance and absolute clarity.
-            </p>
+
+            <!-- Branding Content -->
+            <div class="branding-content">
+                <div class="brand-logo-large">
+                    <div class="brand-icon-large">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <span>Cuatro Marias</span>
+                </div>
+                <p class="branding-tagline">
+                    Official Student Organization at Polytechnic University of the Philippines — Santa Rosa Campus.
+                </p>
+            </div>
         </section>
 
         <!-- Right Panel: Auth Forms -->
@@ -404,7 +553,7 @@
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                         </svg>
                     </div>
-                    <span>Verdant</span>
+                    <span>Cuatro Marias</span>
                 </div>
 
                 <!-- Alert Banners -->
@@ -617,7 +766,6 @@
                     const data = await response.json();
 
                     if (response.ok && data.success) {
-                        // Direct instant transport to landing screen without message delay
                         window.location.href = data.redirect || '/landing';
                     } else {
                         showError(data.message || 'Invalid email or password.');
@@ -687,7 +835,6 @@
                     const data = await response.json();
 
                     if (response.ok && data.success) {
-                        // Reset forms, switch back to login view, populate email, and show success message
                         document.getElementById('signup-form').reset();
                         document.getElementById('login-email').value = email;
                         document.getElementById('login-password').value = '';
