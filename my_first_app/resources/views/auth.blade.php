@@ -6,10 +6,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Authentication — {{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -27,7 +27,7 @@
             --color-success: #10B981;
             --color-success-bg: #ECFDF5;
             --color-success-border: #6EE7B7;
-            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             --radius-md: 8px;
             --radius-lg: 12px;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -197,15 +197,15 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            font-size: 1.875rem;
+            font-size: 2.25rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             margin-bottom: 1rem;
         }
 
         .brand-icon-large {
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             background: rgba(255, 255, 255, 0.2);
             border: 2px solid rgba(255, 255, 255, 0.4);
             border-radius: var(--radius-lg);
@@ -215,8 +215,8 @@
         }
 
         .brand-icon-large svg {
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             fill: none;
             stroke: var(--color-white);
             stroke-width: 2.2;
@@ -225,11 +225,11 @@
         }
 
         .branding-tagline {
-            font-size: 1rem;
+            font-size: 1.125rem;
             font-weight: 400;
-            color: rgba(255, 255, 255, 0.9);
-            max-width: 360px;
-            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 400px;
+            line-height: 1.6;
         }
 
         /* Right Panel - Auth Forms */
@@ -246,7 +246,7 @@
 
         .form-container {
             width: 100%;
-            max-width: 380px;
+            max-width: 400px;
             background: transparent;
             padding: 0;
             border-radius: 0;
@@ -259,15 +259,15 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 1.125rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--color-dark);
             margin-bottom: 1rem;
         }
 
         .brand-icon-small {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             background-color: var(--color-jade-light);
             border-radius: var(--radius-md);
             display: flex;
@@ -276,8 +276,8 @@
         }
 
         .brand-icon-small svg {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             stroke: var(--color-jade);
             stroke-width: 2.2;
             fill: none;
@@ -286,41 +286,41 @@
         }
 
         .form-header {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.35rem;
         }
 
         .form-title {
-            font-size: 1.375rem;
+            font-size: 1.75rem;
             font-weight: 700;
             color: var(--color-dark);
             letter-spacing: -0.015em;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.35rem;
         }
 
         .form-subtitle {
-            font-size: 0.8125rem;
+            font-size: 0.95rem;
             color: var(--color-muted);
-            line-height: 1.35;
+            line-height: 1.45;
         }
 
         /* Form Controls */
         .form-group {
-            margin-bottom: 0.875rem;
+            margin-bottom: 1rem;
         }
 
         .form-label {
             display: block;
-            font-size: 0.8125rem;
-            font-weight: 500;
+            font-size: 0.9375rem;
+            font-weight: 600;
             color: var(--color-dark);
-            margin-bottom: 0.375rem;
+            margin-bottom: 0.45rem;
         }
 
         .form-input {
             width: 100%;
-            height: 38px;
-            padding: 0 0.75rem;
-            font-size: 0.875rem;
+            height: 44px;
+            padding: 0 0.875rem;
+            font-size: 0.95rem;
             font-family: inherit;
             color: var(--color-dark);
             background-color: var(--color-white);
@@ -339,15 +339,55 @@
             box-shadow: 0 0 0 3px rgba(140, 13, 71, 0.15);
         }
 
+        .password-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .password-input-wrapper .form-input {
+            padding-right: 2.75rem;
+        }
+
+        .toggle-password-btn {
+            position: absolute;
+            right: 0.875rem;
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            color: #9CA3AF;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .toggle-password-btn:hover {
+            color: var(--color-jade);
+        }
+
+        .toggle-password-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         /* Checkbox & Forgot Link Row */
         .form-options {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1.25rem;
-            margin-top: 0.25rem;
-            margin-bottom: 1.125rem;
-            font-size: 0.8125rem;
+            margin-top: 0.35rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.875rem;
         }
 
         .checkbox-label {
@@ -358,11 +398,12 @@
             cursor: pointer;
             user-select: none;
             white-space: nowrap;
+            font-size: 0.875rem;
         }
 
         .checkbox-input {
-            width: 15px;
-            height: 15px;
+            width: 16px;
+            height: 16px;
             accent-color: var(--color-jade);
             cursor: pointer;
             border-radius: 4px;
@@ -373,6 +414,7 @@
             text-decoration: none;
             font-weight: 500;
             white-space: nowrap;
+            font-size: 0.875rem;
             transition: var(--transition);
         }
 
@@ -384,11 +426,11 @@
         /* Buttons */
         .btn-primary {
             width: 100%;
-            height: 40px;
+            height: 46px;
             background-color: var(--color-jade);
             color: var(--color-white);
             font-family: inherit;
-            font-size: 0.875rem;
+            font-size: 0.95rem;
             font-weight: 600;
             border: none;
             border-radius: var(--radius-md);
@@ -547,15 +589,6 @@
         <!-- Right Panel: Auth Forms -->
         <main class="form-panel">
             <div class="form-container">
-                <div class="brand-logo-small">
-                    <div class="brand-icon-small">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                        </svg>
-                    </div>
-                    <span>Cuatro Marias</span>
-                </div>
-
                 <!-- Alert Banners -->
                 <div id="alert-error" class="alert alert-error" role="alert"></div>
                 <div id="alert-success" class="alert alert-success" role="alert"></div>
@@ -581,14 +614,20 @@
 
                     <div class="form-group">
                         <label class="form-label" for="login-password">Password</label>
-                        <input 
-                            type="password" 
-                            id="login-password" 
-                            class="form-input" 
-                            placeholder="••••••••" 
-                            autocomplete="current-password" 
-                            required
-                        >
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="login-password" 
+                                class="form-input" 
+                                placeholder="••••••••" 
+                                autocomplete="current-password" 
+                                required
+                            >
+                            <button type="button" class="toggle-password-btn" data-target="login-password" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                <svg class="eye-icon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                <svg class="eye-off-icon" viewBox="0 0 24 24" style="display: none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="form-options">
@@ -640,26 +679,45 @@
 
                     <div class="form-group">
                         <label class="form-label" for="signup-password">Password</label>
-                        <input 
-                            type="password" 
-                            id="signup-password" 
-                            class="form-input" 
-                            placeholder="At least 6 characters" 
-                            autocomplete="new-password" 
-                            required
-                        >
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="signup-password" 
+                                class="form-input" 
+                                placeholder="At least 6 characters" 
+                                autocomplete="new-password" 
+                                required
+                            >
+                            <button type="button" class="toggle-password-btn" data-target="signup-password" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                <svg class="eye-icon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                <svg class="eye-off-icon" viewBox="0 0 24 24" style="display: none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                            </button>
+                        </div>
+                        <!-- Live Password Strength Meter -->
+                        <div id="password-strength-wrap" style="margin-top: 8px; display: none;">
+                            <div style="height: 5px; width: 100%; background-color: #E5E7EB; border-radius: 9999px; overflow: hidden;">
+                                <div id="password-strength-bar" style="height: 100%; width: 0%; transition: all 0.3s ease-in-out; background-color: #EF4444;"></div>
+                            </div>
+                            <span id="password-strength-text" style="font-size: 0.75rem; font-weight: 600; color: #6B7280; margin-top: 4px; display: block;">Weak Password</span>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="signup-confirm-password">Confirm password</label>
-                        <input 
-                            type="password" 
-                            id="signup-confirm-password" 
-                            class="form-input" 
-                            placeholder="Re-enter password" 
-                            autocomplete="new-password" 
-                            required
-                        >
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="signup-confirm-password" 
+                                class="form-input" 
+                                placeholder="Re-enter password" 
+                                autocomplete="new-password" 
+                                required
+                            >
+                            <button type="button" class="toggle-password-btn" data-target="signup-confirm-password" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                <svg class="eye-icon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                <svg class="eye-off-icon" viewBox="0 0 24 24" style="display: none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                            </button>
+                        </div>
                     </div>
 
                     <button type="submit" id="signup-btn" class="btn-primary">Create Account</button>
@@ -733,6 +791,7 @@
 
                 const email = document.getElementById('login-email').value.trim();
                 const password = document.getElementById('login-password').value;
+                const remember = document.getElementById('login-remember').checked;
 
                 if (!email) {
                     showError('Please enter your email address.');
@@ -760,7 +819,7 @@
                             'X-CSRF-TOKEN': csrfToken,
                             'Accept': 'application/json'
                         },
-                        body: JSON.stringify({ email, password })
+                        body: JSON.stringify({ email, password, remember })
                     });
 
                     const data = await response.json();
@@ -776,6 +835,74 @@
                     loginBtn.disabled = false;
                     loginBtn.textContent = 'Log In';
                 }
+            });
+
+            // Live Password Strength Meter Calculation
+            const signupPasswordInput = document.getElementById('signup-password');
+            const strengthWrap = document.getElementById('password-strength-wrap');
+            const strengthBar = document.getElementById('password-strength-bar');
+            const strengthText = document.getElementById('password-strength-text');
+
+            signupPasswordInput.addEventListener('input', () => {
+                const val = signupPasswordInput.value;
+                if (!val) {
+                    strengthWrap.style.display = 'none';
+                    return;
+                }
+
+                strengthWrap.style.display = 'block';
+                let score = 0;
+
+                //Has more than or qual to 8 characters
+                if (val.length >= 8) score++;
+                //has both lowercase and uppercase letters
+                if (/[a-z]/.test(val) && /[A-Z]/.test(val)) score++;
+                //has atleast 1 number
+                if (/\d/.test(val)) score++;
+                //has atleast 1 special symbol
+                if (/[^a-zA-Z0-9]/.test(val)) score++;
+
+                if (score <= 1) {
+                    strengthBar.style.width = '25%';
+                    strengthBar.style.backgroundColor = '#EF4444';
+                    strengthText.textContent = 'Weak Password (Add uppercase, numbers, or symbols)';
+                    strengthText.style.color = '#EF4444';
+                } else if (score === 2) {
+                    strengthBar.style.width = '50%';
+                    strengthBar.style.backgroundColor = '#F59E0B';
+                    strengthText.textContent = 'Fair Password';
+                    strengthText.style.color = '#F59E0B';
+                } else if (score === 3) {
+                    strengthBar.style.width = '75%';
+                    strengthBar.style.backgroundColor = '#3B82F6';
+                    strengthText.textContent = 'Good Password';
+                    strengthText.style.color = '#3B82F6';
+                } else {
+                    strengthBar.style.width = '100%';
+                    strengthBar.style.backgroundColor = '#10B981';
+                    strengthText.textContent = 'Strong Password';
+                    strengthText.style.color = '#10B981';
+                }
+            });
+
+            // Toggle Password Visibility (Eye Icon)
+            document.querySelectorAll('.toggle-password-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    const eyeIcon = btn.querySelector('.eye-icon');
+                    const eyeOffIcon = btn.querySelector('.eye-off-icon');
+
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        eyeIcon.style.display = 'none';
+                        eyeOffIcon.style.display = 'block';
+                    } else {
+                        input.type = 'password';
+                        eyeIcon.style.display = 'block';
+                        eyeOffIcon.style.display = 'none';
+                    }
+                });
             });
 
             // Signup Submit Handler -> Brings user back to login page

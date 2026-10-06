@@ -6,10 +6,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Cuatro Marias — PUP Santa Rosa Campus</title>
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -24,7 +24,7 @@
             --color-red: #EF4444;
             --color-red-hover: #DC2626;
             --color-warning-bg: #FFFBEB;
-            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             --radius-md: 8px;
             --radius-lg: 12px;
             --radius-xl: 16px;
@@ -178,20 +178,24 @@
             }
         }
 
-        /* Glassmorphism Fixed Header Navigation Bar */
+        /* Glassmorphism Floating Pill Header Navigation Bar */
         .navbar {
             position: sticky;
-            top: 0;
+            top: 1.25rem;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.78);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(229, 231, 235, 0.8);
-            padding: 0.875rem 2.5rem;
+            width: calc(100% - 3rem);
+            max-width: 1140px;
+            margin: 1.25rem auto 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(229, 231, 235, 0.9);
+            border-radius: 9999px;
+            padding: 0.65rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 30px -5px rgba(140, 13, 71, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
             transition: var(--transition);
         }
 
@@ -204,31 +208,15 @@
         .nav-brand {
             display: flex;
             align-items: center;
-            gap: 0.625rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--color-dark);
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--color-jade);
             text-decoration: none;
+            letter-spacing: -0.015em;
         }
 
         .brand-icon {
-            width: 34px;
-            height: 34px;
-            background-color: var(--color-jade-light);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .brand-icon svg {
-            width: 20px;
-            height: 20px;
-            stroke: var(--color-jade);
-            stroke-width: 2.2;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+            display: none;
         }
 
         .nav-menu {
@@ -403,28 +391,35 @@
         /* Hero Section */
         .hero-section {
             text-align: center;
-            padding: 5rem 1.5rem 4rem;
+            padding: 6rem 1.5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 120px);
         }
 
         .hero-badge {
             display: inline-block;
             background-color: var(--color-jade-light);
             color: var(--color-jade);
-            font-size: 0.8125rem;
+            font-size: 0.875rem;
             font-weight: 600;
-            padding: 0.35rem 1rem;
+            padding: 0.4rem 1.25rem;
             border-radius: 9999px;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .hero-title {
-            font-size: 2.75rem;
+            font-size: clamp(2rem, 3.8vw, 3.75rem);
             font-weight: 800;
-            color: var(--color-dark);
-            line-height: 1.2;
+            color: var(--color-jade);
+            line-height: 1.15;
             letter-spacing: -0.025em;
-            max-width: 820px;
-            margin: 0 auto 1.25rem;
+            white-space: nowrap;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto 1.5rem;
         }
 
         .hero-paragraph {
@@ -997,11 +992,6 @@
     <header class="navbar">
         <div class="nav-left">
             <a href="#home" class="nav-brand">
-                <div class="brand-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
-                </div>
                 <span>Cuatro Marias</span>
             </a>
 
@@ -1057,11 +1047,6 @@
         <div class="hero-cta">
             <a href="#team" class="btn-hero-primary">Meet the Team</a>
             <a href="#about" class="btn-hero-secondary">Learn More</a>
-        </div>
-
-        <!-- Hero Banner Image -->
-        <div class="hero-banner-wrap">
-            <img src="{{ asset('images/hero-banner.png') }}" alt="Cuatro Marias Hero Banner - PUP Santa Rosa Campus" class="hero-banner-img">
         </div>
     </section>
 
@@ -1170,40 +1155,6 @@
                 <div class="team-info-wrap">
                     <h3 class="team-name">Alexia Eunice<br>Patulot</h3>
                     <div class="team-role">Documentation Specialist</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Trial Limiter Section -->
-    <section class="section">
-        <div class="trial-section">
-            <div class="trial-grid">
-                <div>
-                    <span class="section-tag">Interactive Feature Trial</span>
-                    <h2 class="section-title" style="font-size: 1.75rem; margin-bottom: 0.75rem;">Account Trial Limiter</h2>
-                    <p style="color: var(--color-muted); font-size: 0.9375rem; margin-bottom: 1.25rem;">
-                        Test our live action execution feature. Every newly registered account starts with 5 complimentary trial action credits.
-                    </p>
-
-                    <div id="trial-warning" class="trial-warning">
-                        ⚠️ <strong>Trial Limit Reached!</strong> You have consumed all 5 free action credits for this account.
-                    </div>
-                </div>
-
-                <div>
-                    <div class="trial-display">
-                        <span id="trial-count" class="trial-number">{{ $user->trial_uses_left }}</span>
-                        <span class="trial-label">/ 5 Action Credits Left</span>
-                    </div>
-
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar-fill"></div>
-                    </div>
-
-                    <button type="button" id="use-trial-btn" class="btn-action" {{ $user->trial_uses_left <= 0 ? 'disabled' : '' }}>
-                        Execute Action (Use 1 Credit)
-                    </button>
                 </div>
             </div>
         </div>

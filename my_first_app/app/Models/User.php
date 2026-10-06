@@ -22,7 +22,6 @@ class User extends Authenticatable
         'email',
         'username_hash',
         'password',
-        'trial_uses_left',
     ];
 
     /**
@@ -44,7 +43,6 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'trial_uses_left' => 'integer',
         ];
     }
 }

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('username_hash')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('trial_uses_left')->default(5);
             $table->rememberToken();
             $table->timestamps();
         });

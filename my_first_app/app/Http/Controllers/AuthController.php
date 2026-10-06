@@ -4,22 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
     /**
      * Display the Auth (Login / Signup) page.
+     * Automatically logs in users holding a valid "Remember Me" cookie.
      */
     public function showAuth()
     {
+        // 1. Check active session
         if (session()->has('user_id')) {
             return redirect()->route('landing');
         }
+
+        // 2. Check persistent 'remember_web' cookie if no session exists
+        if (request()->hasCookie('remember_web')) {
+            $rememberToken = request()->cookie('remember_web');
+            if (!empty($rememberToken)) {
+                $user = User::where('remember_token', $rememberToken)->first();
+                if ($user) {
+                    session(['user_id' => $user->id]);
+                    return redirect()->route('landing');
+                }
+            }
+        }
+
         return view('auth');
     }
 
     /**
-     * Handle user registration with SHA-256 password & username hashing.
+     * Handle user registration with Bcrypt password & username hashing.
      * Note: After registration, user must log in manually.
      */
     public function signup(Request $request)
@@ -39,16 +57,15 @@ class AuthController extends Controller
             ], 422);
         }
 
-        // SHA-256 Hashing for Username and Password
+        // Bcrypt Hashing for Password
         $usernameHash = hash('sha256', $email);
-        $passwordHash = hash('sha256', $request->password);
+        $passwordHash = Hash::make($request->password);
 
         User::create([
             'name' => $request->name,
             'email' => $email,
             'username_hash' => $usernameHash,
             'password' => $passwordHash,
-            'trial_uses_left' => 5,
         ]);
 
         // Do NOT log in automatically. Prompt user to log in manually.
@@ -60,21 +77,19 @@ class AuthController extends Controller
     }
 
     /**
-     * Handle user login via Supabase query with SHA-256 password check.
+     * Handle user login via Bcrypt password check with legacy SHA-256 fallback & "Remember Me" support.
      */
     public function login(Request $request)
     {
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
+            'remember' => 'nullable|boolean',
         ]);
 
         $email = strtolower(trim($request->email));
-        $passwordHash = hash('sha256', $request->password);
 
-        $user = User::where('email', $email)
-                    ->where('password', $passwordHash)
-                    ->first();
+        $user = User::where('email', $email)->first();
 
         if (!$user) {
             return response()->json([
@@ -83,7 +98,46 @@ class AuthController extends Controller
             ], 401);
         }
 
+        $passwordMatches = false;
+
+        // Check if password is formatted as a valid Bcrypt hash (starts with $2y$)
+        if (str_starts_with($user->password, '$2y$') || str_starts_with($user->password, '$2a$')) {
+            $passwordMatches = Hash::check($request->password, $user->password);
+        } else {
+            // Legacy Fallback: Check old SHA-256 hash (for accounts created before switching to Bcrypt)
+            $oldSha256Hash = hash('sha256', $request->password);
+            if (hash_equals($user->password, $oldSha256Hash)) {
+                $passwordMatches = true;
+
+                // Seamlessly upgrade legacy SHA-256 password to Bcrypt in database
+                $user->password = Hash::make($request->password);
+                $user->save();
+            }
+        }
+
+        if (!$passwordMatches) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid email or password. Please check your credentials.'
+            ], 401);
+        }
+
         session(['user_id' => $user->id]);
+
+        // Handle "Remember Me" persistent token & cookie
+        if ($request->boolean('remember')) {
+            $rememberToken = Str::random(60);
+            $user->remember_token = $rememberToken;
+            $user->save();
+
+            // Set 30-day persistent cookie (43,200 minutes)
+            Cookie::queue('remember_web', $rememberToken, 43200);
+        } else {
+            // If unchecked, clear any existing token and cookie
+            $user->remember_token = null;
+            $user->save();
+            Cookie::queue(Cookie::forget('remember_web'));
+        }
 
         return response()->json([
             'success' => true,
@@ -97,6 +151,17 @@ class AuthController extends Controller
     public function landing()
     {
         if (!session()->has('user_id')) {
+            // Fallback check for remember_web cookie if session expired
+            if (request()->hasCookie('remember_web')) {
+                $rememberToken = request()->cookie('remember_web');
+                if (!empty($rememberToken)) {
+                    $user = User::where('remember_token', $rememberToken)->first();
+                    if ($user) {
+                        session(['user_id' => $user->id]);
+                        return view('landing', compact('user'));
+                    }
+                }
+            }
             return redirect()->route('login');
         }
 
@@ -115,39 +180,17 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
+        if (session()->has('user_id')) {
+            $user = User::find(session('user_id'));
+            if ($user) {
+                $user->remember_token = null;
+                $user->save();
+            }
+        }
+
         $request->session()->forget('user_id');
+        Cookie::queue(Cookie::forget('remember_web'));
+
         return redirect()->route('login');
-    }
-
-    /**
-     * Decrement user trial limit action.
-     */
-    public function useTrial()
-    {
-        if (!session()->has('user_id')) {
-            return response()->json(['success' => false, 'message' => 'Unauthorized session.'], 401);
-        }
-
-        $user = User::find(session('user_id'));
-
-        if (!$user) {
-            return response()->json(['success' => false, 'message' => 'User not found.'], 404);
-        }
-
-        if ($user->trial_uses_left <= 0) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Trial limit reached! You have 0 trial uses remaining.'
-            ], 400);
-        }
-
-        $user->decrement('trial_uses_left');
-        $user->refresh();
-
-        return response()->json([
-            'success' => true,
-            'trial_uses_left' => $user->trial_uses_left,
-            'message' => 'Action executed! 1 trial credit consumed.'
-        ]);
     }
 }
