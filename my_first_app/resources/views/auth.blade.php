@@ -610,8 +610,8 @@
                 <!-- SIGNUP FORM -->
                 <form id="signup-form" class="auth-form hidden" novalidate>
                     <div class="form-header">
-                        <h1 class="form-title">Create an account</h1>
-                        <p class="form-subtitle">Enter your details to get started with your account.</p>
+                        <h1 class="form-title">Teacher Registration</h1>
+                        <p class="form-subtitle">Register a Teacher account for BSIT 3rd Year Attendance (pending admin approval).</p>
                     </div>
 
                     <div class="form-group">

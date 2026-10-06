@@ -13,20 +13,26 @@ class AuthController extends Controller
     public function showAuth()
     {
         if (session()->has('user_id')) {
+            $user = User::find(session('user_id'));
+            if ($user && $user->isAdmin()) {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user && $user->isTeacher() && $user->isApproved()) {
+                return redirect()->route('teacher.dashboard');
+            }
             return redirect()->route('landing');
         }
         return view('auth');
     }
 
     /**
-     * Handle user registration with SHA-256 password & username hashing.
-     * Note: After registration, user must log in manually.
+     * Handle teacher registration with SHA-256 password & username hashing.
+     * New teacher accounts require admin approval before login.
      */
     public function signup(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255',
             'password' => 'required|string|min:6',
         ]);
 
@@ -44,28 +50,29 @@ class AuthController extends Controller
         $passwordHash = hash('sha256', $request->password);
 
         User::create([
-            'name' => $request->name,
-            'email' => $email,
-            'username_hash' => $usernameHash,
-            'password' => $passwordHash,
+            'name'            => $request->name,
+            'email'           => $email,
+            'username_hash'   => $usernameHash,
+            'password'        => $passwordHash,
+            'role'            => 'teacher',
+            'is_approved'     => false,
             'trial_uses_left' => 5,
         ]);
 
-        // Do NOT log in automatically. Prompt user to log in manually.
         return response()->json([
-            'success' => true,
-            'message' => 'Account created successfully! Please log in with your credentials.',
+            'success'         => true,
+            'message'         => 'Teacher registration submitted! Your account is pending admin approval.',
             'switch_to_login' => true
         ]);
     }
 
     /**
-     * Handle user login via Supabase query with SHA-256 password check.
+     * Handle user login via SHA-256 password check and role-based redirect.
      */
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
+            'email'    => 'required|string|email',
             'password' => 'required|string',
         ]);
 
@@ -83,16 +90,26 @@ class AuthController extends Controller
             ], 401);
         }
 
+        // Approval check for teachers
+        if ($user->isTeacher() && !$user->isApproved()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Your account is pending admin approval. Please wait for an administrator to approve your registration.'
+            ], 403);
+        }
+
         session(['user_id' => $user->id]);
 
+        $redirectUrl = $user->isAdmin() ? route('admin.dashboard') : route('teacher.dashboard');
+
         return response()->json([
-            'success' => true,
-            'redirect' => route('landing')
+            'success'  => true,
+            'redirect' => $redirectUrl
         ]);
     }
 
     /**
-     * Display the authenticated landing screen.
+     * Display the authenticated portal screen.
      */
     public function landing()
     {
@@ -105,6 +122,12 @@ class AuthController extends Controller
         if (!$user) {
             session()->forget('user_id');
             return redirect()->route('login');
+        }
+
+        if ($user->isAdmin()) {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->isTeacher()) {
+            return redirect()->route('teacher.dashboard');
         }
 
         return view('landing', compact('user'));
