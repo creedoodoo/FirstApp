@@ -255,11 +255,12 @@
             display: flex;
             gap: 1rem;
             margin-top: 1.5rem;
+            justify-content: center;
+            align-items: center;
         }
 
         .btn-neutral {
-            flex: 1;
-            padding: 0.75rem 1rem;
+            padding: 0.65rem 1.25rem;
             background-color: #F1F5F9;
             color: #475569;
             border: 1px solid #CBD5E1;
@@ -270,8 +271,7 @@
         }
 
         .btn-red {
-            flex: 1;
-            padding: 0.75rem 1rem;
+            padding: 0.65rem 1.25rem;
             background-color: #EF4444;
             color: #FFFFFF;
             border: none;
@@ -368,7 +368,7 @@
             <p style="color: var(--color-muted); font-size: 0.9375rem;">Are you sure you want to sign out of your account?</p>
             <div class="modal-actions">
                 <button type="button" id="btn-cancel-logout" class="btn-neutral">Cancel</button>
-                <form action="{{ route('logout') }}" method="POST" style="margin: 0; flex: 1;">
+                <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
                     @csrf
                     <button type="submit" class="btn-red">Sign Out</button>
                 </form>

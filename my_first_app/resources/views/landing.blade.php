@@ -346,10 +346,12 @@
         .modal-actions {
             display: flex;
             gap: 0.875rem;
+            justify-content: center;
+            align-items: center;
         }
 
         .btn-modal-neutral {
-            flex: 1;
+            padding: 0.65rem 1.25rem;
             height: 42px;
             background-color: #F3F4F6;
             color: #374151;
@@ -360,6 +362,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            white-space: nowrap;
         }
 
         .btn-modal-neutral:hover {
@@ -368,7 +371,7 @@
         }
 
         .btn-modal-red {
-            width: 100%;
+            padding: 0.65rem 1.25rem;
             height: 42px;
             background-color: var(--color-red);
             color: var(--color-white);
@@ -378,6 +381,8 @@
             font-size: 0.875rem;
             font-weight: 600;
             cursor: pointer;
+            white-space: nowrap;
+        }
             transition: var(--transition);
         }
 
@@ -1037,7 +1042,7 @@
             
             <div class="modal-actions">
                 <button type="button" id="cancel-logout-btn" class="btn-modal-neutral">Cancel</button>
-                <form action="{{ route('logout') }}" method="POST" style="margin: 0; flex: 1;">
+                <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
                     @csrf
                     <button type="submit" class="btn-modal-red">Sign Out</button>
                 </form>
