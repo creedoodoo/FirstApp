@@ -3,16 +3,18 @@
 @section('title', 'Admin Dashboard — BSIT 3rd Year Attendance System')
 
 @section('content')
-<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
-    <div>
-        <h1 style="font-size: 1.75rem; font-weight: 700; color: var(--color-dark);">Admin Attendance Dashboard</h1>
-        <p style="color: var(--color-muted); font-size: 0.9375rem;">BSIT 3rd Year Attendance Reports across all sections, subjects, teachers, and dates.</p>
-    </div>
-    <div>
-        <a href="{{ route('admin.export.csv', request()->query()) }}" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--color-brand); color: #FFF; padding: 0.65rem 1.25rem; border-radius: var(--radius-md); font-weight: 600; text-decoration: none;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Export CSV Report
-        </a>
+<div class="card" style="margin-bottom: 2rem; background: linear-gradient(135deg, #8C0D47 0%, #6F0A38 100%); color: #FFFFFF; padding: 1.75rem 2rem; border-radius: 16px; box-shadow: var(--shadow-md);">
+    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 1.5rem;">
+        <div style="flex: 1; min-width: 250px;">
+            <h1 style="font-size: 1.75rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.35rem;">Admin Attendance Dashboard</h1>
+            <p style="color: rgba(255, 255, 255, 0.9); font-size: 0.9375rem; margin: 0;">BSIT 3rd Year Attendance Reports across all sections, subjects, teachers, and dates.</p>
+        </div>
+        <div>
+            <a href="{{ route('admin.export.csv', request()->query()) }}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #FFFFFF; color: #8C0D47; padding: 0.65rem 1.25rem; border-radius: var(--radius-md); font-weight: 700; text-decoration: none; white-space: nowrap; transition: var(--transition);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C0D47" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export CSV Report
+            </a>
+        </div>
     </div>
 </div>
 
