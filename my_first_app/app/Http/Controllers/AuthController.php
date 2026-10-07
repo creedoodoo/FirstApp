@@ -18,6 +18,12 @@ class AuthController extends Controller
     {
         // 1. Check active session
         if (session()->has('user_id')) {
+            $user = User::find(session('user_id'));
+            if ($user && method_exists($user, 'isAdmin') && $user->isAdmin()) {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user && method_exists($user, 'isTeacher') && method_exists($user, 'isApproved') && $user->isTeacher() && $user->isApproved()) {
+                return redirect()->route('teacher.dashboard');
+            }
             return redirect()->route('landing');
         }
 
@@ -38,13 +44,12 @@ class AuthController extends Controller
 
     /**
      * Handle user registration with Bcrypt password & username hashing.
-     * Note: After registration, user must log in manually.
      */
     public function signup(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255',
             'password' => 'required|string|min:6',
         ]);
 
@@ -62,16 +67,17 @@ class AuthController extends Controller
         $passwordHash = Hash::make($request->password);
 
         User::create([
-            'name' => $request->name,
-            'email' => $email,
+            'name'          => $request->name,
+            'email'         => $email,
             'username_hash' => $usernameHash,
-            'password' => $passwordHash,
+            'password'      => $passwordHash,
+            'role'          => 'teacher',
+            'is_approved'   => false,
         ]);
 
-        // Do NOT log in automatically. Prompt user to log in manually.
         return response()->json([
-            'success' => true,
-            'message' => 'Account created successfully! Please log in with your credentials.',
+            'success'         => true,
+            'message'         => 'Teacher registration submitted! Your account is pending admin approval.',
             'switch_to_login' => true
         ]);
     }
@@ -82,7 +88,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
+            'email'    => 'required|string|email',
             'password' => 'required|string',
             'remember' => 'nullable|boolean',
         ]);
@@ -122,6 +128,16 @@ class AuthController extends Controller
             ], 401);
         }
 
+        // Approval check for teachers
+        if (method_exists($user, 'isTeacher') && method_exists($user, 'isApproved')) {
+            if ($user->isTeacher() && !$user->isApproved()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Your account is pending admin approval. Please wait for an administrator to approve your registration.'
+                ], 403);
+            }
+        }
+
         session(['user_id' => $user->id]);
 
         // Handle "Remember Me" persistent token & cookie
@@ -139,14 +155,21 @@ class AuthController extends Controller
             Cookie::queue(Cookie::forget('remember_web'));
         }
 
+        $redirectUrl = route('landing');
+        if (method_exists($user, 'isAdmin') && $user->isAdmin()) {
+            $redirectUrl = route('admin.dashboard');
+        } elseif (method_exists($user, 'isTeacher') && $user->isTeacher()) {
+            $redirectUrl = route('teacher.dashboard');
+        }
+
         return response()->json([
-            'success' => true,
-            'redirect' => route('landing')
+            'success'  => true,
+            'redirect' => $redirectUrl
         ]);
     }
 
     /**
-     * Display the authenticated landing screen.
+     * Display the authenticated portal screen.
      */
     public function landing()
     {
@@ -170,6 +193,12 @@ class AuthController extends Controller
         if (!$user) {
             session()->forget('user_id');
             return redirect()->route('login');
+        }
+
+        if (method_exists($user, 'isAdmin') && $user->isAdmin()) {
+            return redirect().route('admin.dashboard');
+        } elseif (method_exists($user, 'isTeacher') && $user->isTeacher()) {
+            return redirect().route('teacher.dashboard');
         }
 
         return view('landing', compact('user'));

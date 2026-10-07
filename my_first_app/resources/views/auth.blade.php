@@ -53,6 +53,10 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        button, .btn-primary, .toggle-btn, .forgot-link, .checkbox-label {
+            white-space: nowrap !important;
+        }
+
         .auth-wrapper {
             display: flex;
             width: 100vw;
@@ -578,10 +582,10 @@
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                         </svg>
                     </div>
-                    <span>Cuatro Marias</span>
+                    <span>Attendance System</span>
                 </div>
                 <p class="branding-tagline">
-                    Official Student Organization at Polytechnic University of the Philippines — Santa Rosa Campus.
+                    Official Attendance System exclusively for BSIT 3rd Year students (BSIT 3-1 to 3-4) at Polytechnic University of the Philippines — Santa Rosa Campus.
                 </p>
             </div>
         </section>
@@ -649,8 +653,8 @@
                 <!-- SIGNUP FORM -->
                 <form id="signup-form" class="auth-form hidden" novalidate>
                     <div class="form-header">
-                        <h1 class="form-title">Create an account</h1>
-                        <p class="form-subtitle">Enter your details to get started with your account.</p>
+                        <h1 class="form-title">Teacher Registration</h1>
+                        <p class="form-subtitle">Register a Teacher account for BSIT 3rd Year Attendance (pending admin approval).</p>
                     </div>
 
                     <div class="form-group">
