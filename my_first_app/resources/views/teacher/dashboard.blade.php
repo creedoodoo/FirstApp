@@ -3,20 +3,20 @@
 @section('title', 'Teacher Dashboard — BSIT 3rd Year Attendance System')
 
 @section('content')
-<div class="card" style="margin-bottom: 2rem; background: linear-gradient(135deg, #8C0D47 0%, #6F0A38 100%); color: #FFFFFF; padding: 1.75rem 2rem; border-radius: 16px; box-shadow: var(--shadow-md);">
+<div class="card" style="margin-bottom: 2rem; background: linear-gradient(135deg, #8C0D47 0%, #6F0A38 100%); color: #FFFFFF; padding: 1.75rem 2.5rem; border-radius: 28px; box-shadow: var(--shadow-md);">
     <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 1.5rem;">
         <div style="flex: 1; min-width: 250px;">
             <h1 style="font-size: 1.75rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.35rem;">Hello- {{ $user->name }}</h1>
             <p style="color: rgba(255, 255, 255, 0.9); font-size: 0.9375rem; margin: 0;">Welcome back! Manage your BSIT 3rd Year classes and take attendance.</p>
         </div>
         <div style="display: flex; gap: 0.75rem; flex-wrap: nowrap; flex-shrink: 0; align-items: center;">
-            <a href="{{ route('teacher.classes.index') }}" style="background: #500728; color: #FFFFFF; padding: 0.65rem 1.25rem; border-radius: var(--radius-md); font-weight: 700; text-decoration: none; white-space: nowrap; border: 1px solid rgba(255, 255, 255, 0.25); transition: var(--transition);">
+            <a href="{{ route('teacher.classes.index') }}" style="background: #500728; color: #FFFFFF; padding: 0.65rem 1.35rem; border-radius: 50px; font-weight: 700; text-decoration: none; white-space: nowrap; border: 1px solid rgba(255, 255, 255, 0.25); transition: var(--transition);">
                 + Add Class
             </a>
-            <a href="{{ route('teacher.students.search') }}" style="background: #FFFFFF; color: #8C0D47; padding: 0.65rem 1.25rem; border-radius: var(--radius-md); font-weight: 700; text-decoration: none; white-space: nowrap; transition: var(--transition);">
+            <a href="{{ route('teacher.students.search') }}" style="background: #FFFFFF; color: #8C0D47; padding: 0.65rem 1.35rem; border-radius: 50px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: var(--transition);">
                 Search Student
             </a>
-            <a href="{{ route('teacher.students.create') }}" style="background: #FFFFFF; color: #8C0D47; padding: 0.65rem 1.25rem; border-radius: var(--radius-md); font-weight: 700; text-decoration: none; white-space: nowrap; transition: var(--transition);">
+            <a href="{{ route('teacher.students.create') }}" style="background: #FFFFFF; color: #8C0D47; padding: 0.65rem 1.35rem; border-radius: 50px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: var(--transition);">
                 Register Student
             </a>
         </div>
