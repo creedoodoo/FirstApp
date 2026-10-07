@@ -34,6 +34,11 @@ class AuthController extends Controller
                 $user = User::where('remember_token', $rememberToken)->first();
                 if ($user) {
                     session(['user_id' => $user->id]);
+                    if (method_exists($user, 'isAdmin') && $user->isAdmin()) {
+                        return redirect()->route('admin.dashboard');
+                    } elseif (method_exists($user, 'isTeacher') && method_exists($user, 'isApproved') && $user->isTeacher() && $user->isApproved()) {
+                        return redirect()->route('teacher.dashboard');
+                    }
                     return redirect()->route('landing');
                 }
             }
@@ -196,9 +201,9 @@ class AuthController extends Controller
         }
 
         if (method_exists($user, 'isAdmin') && $user->isAdmin()) {
-            return redirect().route('admin.dashboard');
-        } elseif (method_exists($user, 'isTeacher') && $user->isTeacher()) {
-            return redirect().route('teacher.dashboard');
+            return redirect()->route('admin.dashboard');
+        } elseif (method_exists($user, 'isTeacher') && method_exists($user, 'isApproved') && $user->isTeacher() && $user->isApproved()) {
+            return redirect()->route('teacher.dashboard');
         }
 
         return view('landing', compact('user'));

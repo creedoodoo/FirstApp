@@ -18,12 +18,11 @@ class AdminSeeder extends Seeder
         User::updateOrCreate(
             ['email' => $adminEmail],
             [
-                'name'            => 'System Administrator',
-                'username_hash'   => $usernameHash,
-                'password'        => $passwordHash,
-                'role'            => 'admin',
-                'is_approved'     => true,
-                'trial_uses_left' => 5,
+                'name'          => 'System Administrator',
+                'username_hash' => $usernameHash,
+                'password'      => $passwordHash,
+                'role'          => 'admin',
+                'is_approved'   => true,
             ]
         );
 
