@@ -6,10 +6,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Authentication — {{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -27,7 +27,7 @@
             --color-success: #10B981;
             --color-success-bg: #ECFDF5;
             --color-success-border: #6EE7B7;
-            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             --radius-md: 8px;
             --radius-lg: 12px;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -51,6 +51,10 @@
             background-color: var(--color-ghost-white);
             color: var(--color-dark);
             -webkit-font-smoothing: antialiased;
+        }
+
+        button, .btn-primary, .toggle-btn, .forgot-link, .checkbox-label {
+            white-space: nowrap !important;
         }
 
         .auth-wrapper {
@@ -536,10 +540,10 @@
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                         </svg>
                     </div>
-                    <span>Cuatro Marias</span>
+                    <span>Attendance System</span>
                 </div>
                 <p class="branding-tagline">
-                    Official Student Organization at Polytechnic University of the Philippines — Santa Rosa Campus.
+                    Official Attendance System exclusively for BSIT 3rd Year students (BSIT 3-1 to 3-4) at Polytechnic University of the Philippines — Santa Rosa Campus.
                 </p>
             </div>
         </section>
@@ -553,7 +557,7 @@
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                         </svg>
                     </div>
-                    <span>Cuatro Marias</span>
+                    <span>Attendance System</span>
                 </div>
 
                 <!-- Alert Banners -->

@@ -61,15 +61,15 @@
 
                 <!-- Webcam Capture Add-on Toggle -->
                 <div style="border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
-                    <button type="button" id="btn-toggle-cam" style="padding: 0.4rem 0.75rem; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: var(--radius-sm); font-size: 0.8125rem; font-weight: 600; cursor: pointer;">
-                        📷 Use Camera Photo Capture
+                    <button type="button" id="btn-toggle-cam" style="padding: 0.4rem 0.75rem; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: var(--radius-sm); font-size: 0.8125rem; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                        Use Camera Photo Capture
                     </button>
                     <div id="cam-container" style="display: none; margin-top: 0.75rem; text-align: center;">
                         <video id="webcam-video" width="100%" height="240" autoplay playsinline style="border-radius: var(--radius-md); background: #000; object-fit: cover;"></video>
                         <canvas id="webcam-canvas" style="display: none;"></canvas>
                         <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem; justify-content: center;">
-                            <button type="button" id="btn-snap-cam" style="padding: 0.4rem 0.85rem; background: #10B981; color: #FFF; border: none; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.8125rem; cursor: pointer;">
-                                📸 Snap Photo
+                            <button type="button" id="btn-snap-cam" style="padding: 0.4rem 0.85rem; background: #10B981; color: #FFF; border: none; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.8125rem; cursor: pointer; white-space: nowrap;">
+                                Snap Photo
                             </button>
                             <span id="cam-status" style="font-size: 0.75rem; color: #10B981; font-weight: 600; align-self: center;"></span>
                         </div>
@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-            <button type="submit" style="width: 100%; padding: 0.85rem; background: var(--color-brand); color: #FFF; border: none; border-radius: var(--radius-md); font-weight: 700; font-size: 1rem; cursor: pointer;">
+            <button type="submit" style="width: 100%; padding: 0.85rem; background: var(--color-brand); color: #FFF; border: none; border-radius: var(--radius-md); font-weight: 700; font-size: 1rem; cursor: pointer; white-space: nowrap;">
                 Save Student Registration
             </button>
         </form>
@@ -124,7 +124,7 @@
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             const dataUrl = canvas.toDataURL('image/png');
             camDataInput.value = dataUrl;
-            camStatus.innerText = '✓ Photo captured!';
+            camStatus.innerText = 'Photo captured!';
         });
     }
 </script>

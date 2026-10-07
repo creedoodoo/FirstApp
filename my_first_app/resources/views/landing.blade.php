@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Cuatro Marias — PUP Santa Rosa Campus</title>
+    <title>BSIT 3rd Year Attendance System — PUP Santa Rosa Campus</title>
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -24,7 +24,7 @@
             --color-red: #EF4444;
             --color-red-hover: #DC2626;
             --color-warning-bg: #FFFBEB;
-            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             --radius-md: 8px;
             --radius-lg: 12px;
             --radius-xl: 16px;
@@ -32,6 +32,10 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
             --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
             --transition: all 0.2s ease-in-out;
+        }
+
+        button, .btn-hero-primary, .btn-hero-secondary, .btn-signout-red, .btn-modal-neutral, .btn-modal-red, .btn-action, .btn-map-link, .nav-link {
+            white-space: nowrap !important;
         }
 
         *, *::before, *::after {
@@ -1002,7 +1006,7 @@
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                 </div>
-                <span>Cuatro Marias</span>
+                <span>Attendance System</span>
             </a>
 
             <ul class="nav-menu">
@@ -1048,10 +1052,10 @@
 
     <!-- Hero Section -->
     <section id="home" class="section hero-section">
-        <span class="hero-badge">PUP Santa Rosa Campus Student Organization</span>
-        <h1 class="hero-title">Cuatro Marias Student Organization</h1>
+        <span class="hero-badge">PUP Santa Rosa Campus BSIT 3rd Year</span>
+        <h1 class="hero-title">BSIT 3rd Year Attendance System</h1>
         <p class="hero-paragraph">
-            Official student organization at the Polytechnic University of the Philippines — Santa Rosa Campus dedicated to technical excellence, student leadership, and digital innovation.
+            Official Attendance System for BSIT 3rd Year students at the Polytechnic University of the Philippines — Santa Rosa Campus.
         </p>
 
         <div class="hero-cta">
@@ -1061,7 +1065,7 @@
 
         <!-- Hero Banner Image -->
         <div class="hero-banner-wrap">
-            <img src="{{ asset('images/hero-banner.png') }}" alt="Cuatro Marias Hero Banner - PUP Santa Rosa Campus" class="hero-banner-img">
+            <img src="{{ asset('images/hero-banner.png') }}" alt="BSIT 3rd Year Attendance System Hero Banner - PUP Santa Rosa Campus" class="hero-banner-img">
         </div>
     </section>
 
@@ -1069,19 +1073,19 @@
     <section id="about" class="section">
         <div class="about-grid">
             <div class="about-text">
-                <span class="section-tag">About Cuatro Marias</span>
+                <span class="section-tag">About Attendance System</span>
                 <h2 class="section-title">Polytechnic University of the Philippines — Santa Rosa Campus</h2>
                 <p>
-                    Founded at the Polytechnic University of the Philippines — Santa Rosa Campus, Cuatro Marias equips students with practical technical skills, innovative web projects, and leadership experience.
+                    Developed for the Polytechnic University of the Philippines — Santa Rosa Campus, the BSIT 3rd Year Attendance System streamlines class attendance tracking, real-time logging, and student records management.
                 </p>
                 <p>
-                    Our student organization fosters collaboration, continuous learning, and digital solutions engineered to empower the student body and academic community.
+                    Our system fosters efficiency, accuracy, and modern digital attendance solutions engineered to empower teachers and students.
                 </p>
             </div>
 
             <!-- About Us Image -->
             <div class="about-img-wrap">
-                <img src="{{ asset('images/about-us.jpg') }}" alt="About Cuatro Marias - PUP Santa Rosa Campus" class="about-img">
+                <img src="{{ asset('images/about-us.jpg') }}" alt="About Attendance System - PUP Santa Rosa Campus" class="about-img">
             </div>
         </div>
     </section>
@@ -1129,7 +1133,7 @@
         <div class="team-header">
             <span class="section-tag">Leadership & Vision</span>
             <h2 class="section-title">Meet the Team</h2>
-            <p style="color: var(--color-muted);">The passionate student leaders driving Cuatro Marias forward at PUP Santa Rosa Campus.</p>
+            <p style="color: var(--color-muted);">The passionate team driving the BSIT 3rd Year Attendance System forward at PUP Santa Rosa Campus.</p>
         </div>
 
         <div class="team-grid">
@@ -1187,7 +1191,7 @@
                     </p>
 
                     <div id="trial-warning" class="trial-warning">
-                        ⚠️ <strong>Trial Limit Reached!</strong> You have consumed all 5 free action credits for this account.
+                        <strong>Trial Limit Reached!</strong> You have consumed all 5 free action credits for this account.
                     </div>
                 </div>
 
@@ -1215,7 +1219,7 @@
             <div class="contact-info-card">
                 <span class="section-tag">Get In Touch</span>
                 <h2 class="section-title">Contact Our Team</h2>
-                <p style="color: var(--color-muted); margin-bottom: 2rem;">Have questions about Cuatro Marias? Reach out to our student organization representatives.</p>
+                <p style="color: var(--color-muted); margin-bottom: 2rem;">Have questions about the Attendance System? Reach out to our system administrators.</p>
 
                 <div class="contact-detail">
                     <div class="contact-detail-label">Headquarters</div>
@@ -1224,7 +1228,7 @@
 
                 <div class="contact-detail">
                     <div class="contact-detail-label">Email Inquiries</div>
-                    <div class="contact-detail-val">cuatromarias@pupsantarosa.edu.ph</div>
+                    <div class="contact-detail-val">attendancesystem@pupsantarosa.edu.ph</div>
                 </div>
 
                 <div class="contact-detail">
@@ -1268,7 +1272,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; {{ date('Y') }} Cuatro Marias — PUP Santa Rosa Campus. All rights reserved.</p>
+        <p>&copy; {{ date('Y') }} BSIT 3rd Year Attendance System — PUP Santa Rosa Campus. All rights reserved.</p>
     </footer>
 
     <!-- Interactive Scripts -->

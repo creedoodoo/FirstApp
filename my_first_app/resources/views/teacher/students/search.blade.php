@@ -18,8 +18,8 @@
                 <span style="font-size: 0.75rem; color: var(--color-muted); margin-top: 0.25rem; display: block;">Format rule: <code>YYYY-XXXXX-SR-N</code></span>
             </div>
 
-            <button type="submit" style="width: 100%; padding: 0.75rem; background: var(--color-brand); color: #FFF; border: none; border-radius: var(--radius-md); font-weight: 700; font-size: 1rem; cursor: pointer;">
-                🔍 Search Student
+            <button type="submit" style="width: 100%; padding: 0.75rem; background: var(--color-brand); color: #FFF; border: none; border-radius: var(--radius-md); font-weight: 700; font-size: 1rem; cursor: pointer; white-space: nowrap;">
+                Search Student
             </button>
         </form>
     </div>
@@ -42,14 +42,13 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('teacher.students.show', $result->id) }}" style="padding: 0.65rem 1.15rem; background: var(--color-brand); color: #FFF; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; font-size: 0.875rem;">
+                    <a href="{{ route('teacher.students.show', $result->id) }}" style="padding: 0.65rem 1.15rem; background: var(--color-brand); color: #FFF; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; font-size: 0.875rem; white-space: nowrap;">
                         View Attendance History &rarr;
                     </a>
                 </div>
             </div>
         @else
             <div class="card" style="border-left: 4px solid #F59E0B; text-align: center; padding: 2.5rem 1.5rem;">
-                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔎</div>
                 <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--color-dark); margin-bottom: 0.5rem;">
                     No student found matching "{{ $query }}"
                 </h3>
@@ -57,7 +56,7 @@
                     This student number is not registered in the system yet.
                 </p>
 
-                <a href="{{ route('teacher.students.create', ['student_number' => $query]) }}" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--color-brand); color: #FFF; border-radius: var(--radius-md); font-weight: 700; text-decoration: none;">
+                <a href="{{ route('teacher.students.create', ['student_number' => $query]) }}" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--color-brand); color: #FFF; border-radius: var(--radius-md); font-weight: 700; text-decoration: none; white-space: nowrap;">
                     + Register This Student Now
                 </a>
             </div>

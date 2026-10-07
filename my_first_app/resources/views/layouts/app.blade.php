@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Cuatro Marias Portal — BSIT 3rd Year Attendance System')</title>
+    <title>@yield('title', 'BSIT 3rd Year Attendance System')</title>
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -39,7 +39,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
         }
 
         body {
@@ -49,6 +49,11 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        /* Ensure all buttons do not wrap content into multiple lines */
+        button, .btn-primary, .btn-neutral, .btn-red, .btn-signout-red, a.nav-link {
+            white-space: nowrap !important;
         }
 
         /* Glassmorphism Navbar */
@@ -81,6 +86,7 @@
             font-weight: 700;
             color: var(--color-dark);
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .brand-icon {
@@ -92,6 +98,7 @@
             align-items: center;
             justify-content: center;
             color: var(--color-brand);
+            flex-shrink: 0;
         }
 
         .nav-menu {
@@ -109,6 +116,7 @@
             padding: 0.5rem 1rem;
             border-radius: var(--radius-md);
             transition: var(--transition);
+            white-space: nowrap;
         }
 
         .nav-link:hover, .nav-link.active {
@@ -133,6 +141,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            white-space: nowrap;
         }
 
         .role-badge-admin {
@@ -151,6 +160,7 @@
             font-size: 0.9375rem;
             font-weight: 600;
             color: var(--color-dark);
+            white-space: nowrap;
         }
 
         .btn-signout-red {
@@ -164,6 +174,7 @@
             align-items: center;
             justify-content: center;
             transition: var(--transition);
+            white-space: nowrap;
         }
 
         .btn-signout-red:hover {
@@ -255,6 +266,7 @@
             border-radius: var(--radius-md);
             font-weight: 600;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         .btn-red {
@@ -266,6 +278,7 @@
             border-radius: var(--radius-md);
             font-weight: 600;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         .footer {
@@ -291,7 +304,7 @@
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                 </div>
-                <span>Cuatro Marias Portal</span>
+                <span>Attendance System</span>
             </a>
 
             @if(session('user_id'))
@@ -364,7 +377,7 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; {{ date('Y') }} Cuatro Marias Portal — BSIT 3rd Year Attendance System (PUP Santa Rosa Campus). All rights reserved.</p>
+        <p>&copy; {{ date('Y') }} BSIT 3rd Year Attendance System — PUP Santa Rosa Campus. All rights reserved.</p>
     </footer>
 
     <script>

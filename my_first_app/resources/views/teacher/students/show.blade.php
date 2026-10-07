@@ -20,7 +20,7 @@
             @if($student->photo_path)
                 <img src="{{ asset('storage/' . $student->photo_path) }}" alt="{{ $student->full_name }}" style="width: 100%; height: 100%; object-fit: cover;">
             @else
-                <span style="font-size: 2rem; color: #94A3B8;">👤</span>
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             @endif
         </div>
 

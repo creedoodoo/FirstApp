@@ -40,16 +40,16 @@
 
             @if($session->edited_at)
                 <div style="font-size: 0.75rem; color: #D97706; margin-top: 0.5rem; font-weight: 600;">
-                    ✏️ Session edited on {{ $session->edited_at->format('M d, Y g:i A') }} by {{ optional($session->editedBy)->name ?? 'User' }}
+                    Session edited on {{ $session->edited_at->format('M d, Y g:i A') }} by {{ optional($session->editedBy)->name ?? 'User' }}
                 </div>
             @endif
         </div>
 
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <a href="{{ route('teacher.dashboard') }}" style="padding: 0.55rem 1rem; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; font-size: 0.875rem;">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: nowrap; align-items: center;">
+            <a href="{{ route('teacher.dashboard') }}" style="padding: 0.55rem 1rem; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; font-size: 0.875rem; white-space: nowrap;">
                 &larr; Dashboard
             </a>
-            <button type="button" onclick="document.getElementById('add-student-session-modal').style.display='flex';" style="padding: 0.55rem 1rem; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 600; font-size: 0.875rem; cursor: pointer;">
+            <button type="button" onclick="document.getElementById('add-student-session-modal').style.display='flex';" style="padding: 0.55rem 1rem; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 600; font-size: 0.875rem; cursor: pointer; white-space: nowrap;">
                 + Add Student to Class
             </button>
         </div>
@@ -77,27 +77,27 @@
         </div>
 
         <!-- Quick Action Shortcuts -->
-        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: nowrap;">
             <!-- Filter Search Input -->
             <input type="text" id="sheet-search" placeholder="Filter student..." style="padding: 0.45rem 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 0.8125rem; width: 150px;">
 
             <form action="{{ route('teacher.sessions.mark_all_present', $session->id) }}" method="POST" style="margin: 0;">
                 @csrf
-                <button type="submit" style="padding: 0.45rem 0.85rem; background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; border-radius: var(--radius-md); font-weight: 600; font-size: 0.8125rem; cursor: pointer;">
-                    ✓ Mark All Present
+                <button type="submit" style="padding: 0.45rem 0.85rem; background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; border-radius: var(--radius-md); font-weight: 600; font-size: 0.8125rem; cursor: pointer; white-space: nowrap;">
+                    Mark All Present
                 </button>
             </form>
 
             <form action="{{ route('teacher.sessions.mark_remaining_absent', $session->id) }}" method="POST" style="margin: 0;">
                 @csrf
-                <button type="submit" style="padding: 0.45rem 0.85rem; background: #FEF2F2; color: #991B1B; border: 1px solid #FCA5A5; border-radius: var(--radius-md); font-weight: 600; font-size: 0.8125rem; cursor: pointer;">
-                    ✕ Mark Remaining Absent
+                <button type="submit" style="padding: 0.45rem 0.85rem; background: #FEF2F2; color: #991B1B; border: 1px solid #FCA5A5; border-radius: var(--radius-md); font-weight: 600; font-size: 0.8125rem; cursor: pointer; white-space: nowrap;">
+                    Mark Remaining Absent
                 </button>
             </form>
 
             <form action="{{ route('teacher.sessions.submit', $session->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Submit attendance sheet? Once submitted, the session is finalized.');">
                 @csrf
-                <button type="submit" id="btn-submit-sheet" style="padding: 0.5rem 1.25rem; background: var(--color-brand); color: #FFF; border: none; border-radius: var(--radius-md); font-weight: 700; font-size: 0.875rem; cursor: pointer;">
+                <button type="submit" id="btn-submit-sheet" style="padding: 0.5rem 1.25rem; background: var(--color-brand); color: #FFF; border: none; border-radius: var(--radius-md); font-weight: 700; font-size: 0.875rem; cursor: pointer; white-space: nowrap;">
                     {{ $session->isSubmitted() ? 'Re-Submit Updates' : 'Submit Sheet' }}
                 </button>
             </form>
@@ -126,7 +126,7 @@
                         <td style="padding: 0.875rem 1rem; color: var(--color-muted);">{{ $index + 1 }}</td>
                         <td style="padding: 0.875rem 1rem; font-family: monospace; font-weight: 600;">
                             <a href="{{ route('teacher.students.show', $st->id) }}" style="color: inherit; text-decoration: none;" title="View Student History">
-                                {{ $st->student_number }} 🔗
+                                {{ $st->student_number }}
                             </a>
                         </td>
                         <td style="padding: 0.875rem 1rem; font-weight: 700; color: var(--color-dark);">
@@ -136,19 +136,19 @@
                         <!-- Status Button Group -->
                         <td style="padding: 0.875rem 1rem; text-align: center;">
                             <div style="display: inline-flex; gap: 0.35rem; background: #F1F5F9; padding: 0.25rem; border-radius: var(--radius-md);">
-                                <button type="button" onclick="updateStatus({{ $rec->id }}, 'present')" id="btn-present-{{ $rec->id }}" style="padding: 0.4rem 0.75rem; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); background: {{ $rec->status === 'present' ? '#10B981' : 'transparent' }}; color: {{ $rec->status === 'present' ? '#FFF' : '#475569' }};">
+                                <button type="button" onclick="updateStatus({{ $rec->id }}, 'present')" id="btn-present-{{ $rec->id }}" style="padding: 0.4rem 0.75rem; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); background: {{ $rec->status === 'present' ? '#10B981' : 'transparent' }}; color: {{ $rec->status === 'present' ? '#FFF' : '#475569' }}; white-space: nowrap;">
                                     Present
                                 </button>
 
-                                <button type="button" onclick="updateStatus({{ $rec->id }}, 'late')" id="btn-late-{{ $rec->id }}" style="padding: 0.4rem 0.75rem; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); background: {{ $rec->status === 'late' ? '#F59E0B' : 'transparent' }}; color: {{ $rec->status === 'late' ? '#FFF' : '#475569' }};">
+                                <button type="button" onclick="updateStatus({{ $rec->id }}, 'late')" id="btn-late-{{ $rec->id }}" style="padding: 0.4rem 0.75rem; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); background: {{ $rec->status === 'late' ? '#F59E0B' : 'transparent' }}; color: {{ $rec->status === 'late' ? '#FFF' : '#475569' }}; white-space: nowrap;">
                                     Late
                                 </button>
 
-                                <button type="button" onclick="updateStatus({{ $rec->id }}, 'absent')" id="btn-absent-{{ $rec->id }}" style="padding: 0.4rem 0.75rem; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); background: {{ $rec->status === 'absent' ? '#EF4444' : 'transparent' }}; color: {{ $rec->status === 'absent' ? '#FFF' : '#475569' }};">
+                                <button type="button" onclick="updateStatus({{ $rec->id }}, 'absent')" id="btn-absent-{{ $rec->id }}" style="padding: 0.4rem 0.75rem; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); background: {{ $rec->status === 'absent' ? '#EF4444' : 'transparent' }}; color: {{ $rec->status === 'absent' ? '#FFF' : '#475569' }}; white-space: nowrap;">
                                     Absent
                                 </button>
 
-                                <button type="button" onclick="openExcusedModal({{ $rec->id }}, '{{ addslashes($rec->remarks) }}')" id="btn-excused-{{ $rec->id }}" style="padding: 0.4rem 0.75rem; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); background: {{ $rec->status === 'excused' ? '#0284C7' : 'transparent' }}; color: {{ $rec->status === 'excused' ? '#FFF' : '#475569' }};">
+                                <button type="button" onclick="openExcusedModal({{ $rec->id }}, '{{ addslashes($rec->remarks) }}')" id="btn-excused-{{ $rec->id }}" style="padding: 0.4rem 0.75rem; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); background: {{ $rec->status === 'excused' ? '#0284C7' : 'transparent' }}; color: {{ $rec->status === 'excused' ? '#FFF' : '#475569' }}; white-space: nowrap;">
                                     Excused
                                 </button>
                             </div>
@@ -161,8 +161,8 @@
                             </span>
 
                             <div style="margin-top: 0.35rem;">
-                                <button type="button" onclick="openLeftEarlyModal({{ $rec->id }}, {{ $rec->left_early ? 1 : 0 }}, '{{ addslashes($rec->remarks) }}')" id="btn-leftearly-{{ $rec->id }}" style="padding: 0.2rem 0.5rem; background: {{ $rec->left_early ? '#FEE2E2' : '#F1F5F9' }}; color: {{ $rec->left_early ? '#DC2626' : '#64748B' }}; border: 1px solid {{ $rec->left_early ? '#FCA5A5' : '#CBD5E1' }}; border-radius: 4px; font-size: 0.7rem; font-weight: 600; cursor: pointer;">
-                                    🏃 {{ $rec->left_early ? 'Left Early (' . ($rec->left_at ? $rec->left_at->format('g:i A') : 'Yes') . ')' : 'Left Early' }}
+                                <button type="button" onclick="openLeftEarlyModal({{ $rec->id }}, {{ $rec->left_early ? 1 : 0 }}, '{{ addslashes($rec->remarks) }}')" id="btn-leftearly-{{ $rec->id }}" style="padding: 0.2rem 0.5rem; background: {{ $rec->left_early ? '#FEE2E2' : '#F1F5F9' }}; color: {{ $rec->left_early ? '#DC2626' : '#64748B' }}; border: 1px solid {{ $rec->left_early ? '#FCA5A5' : '#CBD5E1' }}; border-radius: 4px; font-size: 0.7rem; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                                    {{ $rec->left_early ? 'Left Early (' . ($rec->left_at ? $rec->left_at->format('g:i A') : 'Yes') . ')' : 'Left Early' }}
                                 </button>
                             </div>
                         </td>
@@ -360,7 +360,7 @@
         if (leftEarly) {
             btnLE.style.background = '#FEE2E2';
             btnLE.style.color = '#DC2626';
-            btnLE.innerText = '🏃 Left Early';
+            btnLE.innerText = 'Left Early';
         } else {
             btnLE.style.background = '#F1F5F9';
             btnLE.style.color = '#64748B';

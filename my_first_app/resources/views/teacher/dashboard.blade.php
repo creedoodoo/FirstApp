@@ -3,20 +3,20 @@
 @section('title', 'Teacher Dashboard — BSIT 3rd Year Attendance System')
 
 @section('content')
-<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
-    <div>
-        <h1 style="font-size: 1.75rem; font-weight: 700; color: var(--color-dark);">Teacher Dashboard</h1>
-        <p style="color: var(--color-muted);">Welcome back, {{ $user->name }}! Manage your BSIT 3rd Year classes and take attendance.</p>
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; width: 100%; flex-wrap: nowrap; gap: 1.5rem;">
+    <div style="flex: 1;">
+        <h1 style="font-size: 1.75rem; font-weight: 700; color: var(--color-dark);">Hello- {{ $user->name }}</h1>
+        <p style="color: var(--color-muted);">Welcome back! Manage your BSIT 3rd Year classes and take attendance.</p>
     </div>
-    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-        <a href="{{ route('teacher.classes.index') }}" class="btn-primary" style="background: var(--color-brand); color: #FFF; padding: 0.65rem 1.15rem; border-radius: var(--radius-md); font-weight: 600; text-decoration: none;">
+    <div style="display: flex; gap: 0.75rem; flex-wrap: nowrap; flex-shrink: 0; align-items: center;">
+        <a href="{{ route('teacher.classes.index') }}" class="btn-primary" style="background: var(--color-brand); color: #FFF; padding: 0.65rem 1.15rem; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; white-space: nowrap;">
             + Add Class
         </a>
-        <a href="{{ route('teacher.students.search') }}" style="background: #F1F5F9; color: #475569; padding: 0.65rem 1.15rem; border: 1px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 600; text-decoration: none;">
-            🔍 Search Student
+        <a href="{{ route('teacher.students.search') }}" style="background: #F1F5F9; color: #475569; padding: 0.65rem 1.15rem; border: 1px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; white-space: nowrap;">
+            Search Student
         </a>
-        <a href="{{ route('teacher.students.create') }}" style="background: #F1F5F9; color: #475569; padding: 0.65rem 1.15rem; border: 1px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 600; text-decoration: none;">
-            👤 Register Student
+        <a href="{{ route('teacher.students.create') }}" style="background: #F1F5F9; color: #475569; padding: 0.65rem 1.15rem; border: 1px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; white-space: nowrap;">
+            Register Student
         </a>
     </div>
 </div>
