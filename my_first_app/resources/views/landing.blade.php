@@ -996,16 +996,12 @@
     <header class="navbar">
         <div class="nav-left">
             <a href="#home" class="nav-brand">
-<<<<<<< HEAD
-                <span>Cuatro Marias</span>
-=======
                 <div class="brand-icon">
                     <svg viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                 </div>
                 <span>Attendance System</span>
->>>>>>> 1a4f3236351452034548c4ff51b59fb048fa2cb3
             </a>
 
             <ul class="nav-menu">
@@ -1061,14 +1057,10 @@
             <a href="#team" class="btn-hero-primary">Meet the Team</a>
             <a href="#about" class="btn-hero-secondary">Learn More</a>
         </div>
-<<<<<<< HEAD
-=======
-
         <!-- Hero Banner Image -->
         <div class="hero-banner-wrap">
             <img src="{{ asset('images/hero-banner.png') }}" alt="BSIT 3rd Year Attendance System Hero Banner - PUP Santa Rosa Campus" class="hero-banner-img">
         </div>
->>>>>>> 1a4f3236351452034548c4ff51b59fb048fa2cb3
     </section>
 
     <!-- About Section -->
@@ -1181,43 +1173,7 @@
         </div>
     </section>
 
-<<<<<<< HEAD
-=======
-    <!-- Interactive Trial Limiter Section -->
-    <section class="section">
-        <div class="trial-section">
-            <div class="trial-grid">
-                <div>
-                    <span class="section-tag">Interactive Feature Trial</span>
-                    <h2 class="section-title" style="font-size: 1.75rem; margin-bottom: 0.75rem;">Account Trial Limiter</h2>
-                    <p style="color: var(--color-muted); font-size: 0.9375rem; margin-bottom: 1.25rem;">
-                        Test our live action execution feature. Every newly registered account starts with 5 complimentary trial action credits.
-                    </p>
 
-                    <div id="trial-warning" class="trial-warning">
-                        <strong>Trial Limit Reached!</strong> You have consumed all 5 free action credits for this account.
-                    </div>
-                </div>
-
-                <div>
-                    <div class="trial-display">
-                        <span id="trial-count" class="trial-number">{{ $user->trial_uses_left }}</span>
-                        <span class="trial-label">/ 5 Action Credits Left</span>
-                    </div>
-
-                    <div class="progress-bar-container">
-                        <div id="progress-bar" class="progress-bar-fill"></div>
-                    </div>
-
-                    <button type="button" id="use-trial-btn" class="btn-action" {{ $user->trial_uses_left <= 0 ? 'disabled' : '' }}>
-                        Execute Action (Use 1 Credit)
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
->>>>>>> 1a4f3236351452034548c4ff51b59fb048fa2cb3
     <!-- Contact Section -->
     <section id="contact" class="section">
         <div class="contact-grid">
