@@ -4,14 +4,14 @@
 
 @section('content')
 <!-- Session Header Banner -->
-<div class="card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, #FBF0F5 0%, #FFFFFF 100%);">
+<div class="card" style="margin-bottom: 1.5rem; background: var(--color-brand, #8C0D47); color: #FFFFFF; box-shadow: var(--shadow-md);">
     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
         <div>
             <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.35rem;">
-                <span style="font-size: 0.8125rem; font-weight: 700; color: var(--color-brand); font-family: monospace; background: var(--color-brand-light); padding: 0.2rem 0.6rem; border-radius: 4px;">
+                <span style="font-size: 0.8125rem; font-weight: 800; color: #8C0D47; font-family: monospace; background: #FFFFFF; padding: 0.25rem 0.65rem; border-radius: 4px;">
                     {{ optional(optional($session->schoolClass)->subject)->code }}
                 </span>
-                <span style="font-size: 1.125rem; font-weight: 700; color: var(--color-dark);">
+                <span style="font-size: 1.125rem; font-weight: 700; color: #FFFFFF;">
                     {{ optional($session->schoolClass)->section }}
                 </span>
                 @if($session->isSubmitted())
@@ -30,26 +30,26 @@
                 @endif
             </div>
 
-            <h2 style="font-size: 1.35rem; font-weight: 700; color: var(--color-dark); margin-bottom: 0.25rem;">
+            <h2 style="font-size: 1.35rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.25rem;">
                 {{ optional(optional($session->schoolClass)->subject)->name }}
             </h2>
-            <div style="font-size: 0.875rem; color: var(--color-muted);">
-                <strong>Date:</strong> {{ $session->session_date->format('F d, Y (l)') }} &bull; 
-                <strong>Schedule:</strong> {{ optional($session->schoolClass)->formatted_time }}
+            <div style="font-size: 0.875rem; color: rgba(255, 255, 255, 0.9);">
+                <strong style="color: #FFFFFF;">Date:</strong> {{ $session->session_date->format('F d, Y (l)') }} &bull; 
+                <strong style="color: #FFFFFF;">Schedule:</strong> {{ optional($session->schoolClass)->formatted_time }}
             </div>
 
             @if($session->edited_at)
-                <div style="font-size: 0.75rem; color: #D97706; margin-top: 0.5rem; font-weight: 600;">
+                <div style="font-size: 0.75rem; color: #FCD34D; margin-top: 0.5rem; font-weight: 600;">
                     Session edited on {{ $session->edited_at->format('M d, Y g:i A') }} by {{ optional($session->editedBy)->name ?? 'User' }}
                 </div>
             @endif
         </div>
 
         <div style="display: flex; gap: 0.5rem; flex-wrap: nowrap; align-items: center;">
-            <a href="{{ route('teacher.dashboard') }}" style="padding: 0.55rem 1rem; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; font-size: 0.875rem; white-space: nowrap;">
-                &larr; Dashboard
+            <a href="{{ route('teacher.sessions.index') }}" style="padding: 0.55rem 1rem; background: #FFFFFF; color: #8C0D47; border: 1px solid #FFFFFF; border-radius: var(--radius-md); font-weight: 700; text-decoration: none; font-size: 0.875rem; white-space: nowrap; transition: var(--transition);">
+                &larr; Back to List
             </a>
-            <button type="button" onclick="document.getElementById('add-student-session-modal').style.display='flex';" style="padding: 0.55rem 1rem; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: var(--radius-md); font-weight: 600; font-size: 0.875rem; cursor: pointer; white-space: nowrap;">
+            <button type="button" onclick="document.getElementById('add-student-session-modal').style.display='flex';" style="padding: 0.55rem 1rem; background: #FBF0F5; color: #8C0D47; border: 1px solid #FBF0F5; border-radius: var(--radius-md); font-weight: 800; font-size: 0.875rem; cursor: pointer; white-space: nowrap; transition: var(--transition);">
                 + Add Student to Class
             </button>
         </div>
