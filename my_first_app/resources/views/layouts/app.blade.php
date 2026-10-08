@@ -65,7 +65,7 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--color-border);
-            padding: 0.875rem 2rem;
+            padding: 0.875rem 2.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -186,9 +186,9 @@
         /* Container */
         .container {
             width: 100%;
-            max-width: 1240px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 2rem 1.5rem;
+            padding: 2rem 2.5rem;
             flex: 1;
         }
 
