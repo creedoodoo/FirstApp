@@ -75,13 +75,13 @@
 
                     <div id="cam-container" style="display: none; margin-top: 0.75rem; text-align: center;">
                         <!-- Camera Viewport with Dotted Circle Guide -->
-                        <div style="position: relative; width: 100%; height: 340px; border-radius: var(--radius-md); overflow: hidden; background: #000; box-shadow: var(--shadow-sm);">
-                            <video id="webcam-video" width="100%" height="340" autoplay playsinline style="width: 100%; height: 340px; object-fit: cover;"></video>
+                        <div style="position: relative; width: 100%; height: 380px; border-radius: var(--radius-md); overflow: hidden; background: #000; box-shadow: var(--shadow-sm);">
+                            <video id="webcam-video" width="100%" height="380" autoplay playsinline style="width: 100%; height: 380px; object-fit: cover;"></video>
                             <canvas id="webcam-canvas" style="display: none;"></canvas>
 
                             <!-- Dotted Circle Guide Overlay -->
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 210px; height: 210px; border: 2.5px dashed rgba(255, 255, 255, 0.9); border-radius: 50%; pointer-events: none; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);">
-                                <div style="position: absolute; bottom: -28px; width: 100%; text-align: center; color: #FFFFFF; font-size: 0.75rem; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 270px; height: 270px; border: 3px dashed rgba(255, 255, 255, 0.95); border-radius: 50%; pointer-events: none; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);">
+                                <div style="position: absolute; bottom: -32px; width: 100%; text-align: center; color: #FFFFFF; font-size: 0.8125rem; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,0.9);">
                                     Align Face Inside Circle
                                 </div>
                             </div>
@@ -106,40 +106,42 @@
 
 <!-- Uploaded Image Crop & Adjustment Modal -->
 <div id="crop-modal" class="modal-overlay" style="display: none;">
-    <div class="modal-card" style="max-width: 440px; text-align: center;">
-        <h3 style="margin-bottom: 0.25rem;">Adjust & Crop Photo</h3>
-        <p style="color: var(--color-muted); font-size: 0.8125rem; margin-bottom: 1rem;">Position and rotate your photo inside the circular frame.</p>
+    <div class="modal-card" style="max-width: 440px; text-align: center; background: #FFFFFF; border-radius: 24px; padding: 2rem; box-shadow: var(--shadow-lg);">
+        <h3 style="margin-bottom: 0.25rem; color: var(--color-dark);">Adjust & Crop Photo</h3>
+        <p style="color: var(--color-muted); font-size: 0.8125rem; margin-bottom: 1.25rem;">Position and rotate your photo inside the circular frame.</p>
 
         <!-- Crop Viewport Canvas Area -->
-        <div style="position: relative; width: 280px; height: 280px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; border: 3px dashed var(--color-brand); background: #000; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45);">
+        <div style="position: relative; width: 280px; height: 280px; margin: 0 auto 1.25rem; border-radius: 50%; overflow: hidden; border: 3.5px dashed var(--color-brand); background: #1E293B; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
             <canvas id="crop-canvas" width="280" height="280" style="width: 280px; height: 280px; display: block;"></canvas>
         </div>
 
         <!-- Controls: Zoom & Rotate -->
-        <div style="background: #F8FAFC; padding: 0.875rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); margin-bottom: 1.25rem;">
+        <div style="background: #F8FAFC; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); margin-bottom: 1.25rem;">
             <!-- Zoom Slider -->
-            <div style="margin-bottom: 0.75rem;">
-                <label style="font-size: 0.75rem; font-weight: 700; color: var(--color-dark); display: block; margin-bottom: 0.25rem;">Zoom Scale</label>
-                <input type="range" id="crop-zoom" min="0.5" max="3.0" step="0.05" value="1.0" style="width: 80%;">
+            <div style="margin-bottom: 0.85rem;">
+                <label style="font-size: 0.75rem; font-weight: 700; color: var(--color-dark); display: block; margin-bottom: 0.35rem;">Zoom Scale</label>
+                <input type="range" id="crop-zoom" min="0.5" max="3.0" step="0.05" value="1.0" style="width: 85%;">
             </div>
 
             <!-- Action Buttons: Rotate & Flip -->
             <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
-                <button type="button" id="btn-rotate-left" style="padding: 0.35rem 0.75rem; background: #FFFFFF; color: #475569; border: 1px solid #CBD5E1; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
+                <button type="button" id="btn-rotate-left" style="padding: 0.4rem 0.85rem; background: #FFFFFF; color: #475569; border: 1px solid #CBD5E1; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
                     Rotate Left 90°
                 </button>
-                <button type="button" id="btn-rotate-right" style="padding: 0.35rem 0.75rem; background: #FFFFFF; color: #475569; border: 1px solid #CBD5E1; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
+                <button type="button" id="btn-rotate-right" style="padding: 0.4rem 0.85rem; background: #FFFFFF; color: #475569; border: 1px solid #CBD5E1; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
                     Rotate Right 90°
                 </button>
-                <button type="button" id="btn-flip-h" style="padding: 0.35rem 0.75rem; background: #FFFFFF; color: #475569; border: 1px solid #CBD5E1; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
+                <button type="button" id="btn-flip-h" style="padding: 0.4rem 0.85rem; background: #FFFFFF; color: #475569; border: 1px solid #CBD5E1; border-radius: 50px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
                     Flip Horizontal
                 </button>
             </div>
         </div>
 
         <div style="display: flex; gap: 0.75rem; justify-content: center;">
-            <button type="button" id="btn-close-crop" class="btn-neutral">Cancel</button>
-            <button type="button" id="btn-apply-crop" class="btn-primary" style="background: var(--color-brand); color: #FFF; padding: 0.65rem 1.25rem; border-radius: 50px; font-weight: 700; border: none; cursor: pointer;">
+            <button type="button" id="btn-close-crop" style="padding: 0.65rem 1.25rem; background: #FEF2F2; color: #EF4444; border: 1px solid #FCA5A5; border-radius: 50px; font-weight: 700; font-size: 0.875rem; cursor: pointer; white-space: nowrap;">
+                Cancel
+            </button>
+            <button type="button" id="btn-apply-crop" class="btn-primary" style="background: var(--color-brand); color: #FFF; padding: 0.65rem 1.25rem; border-radius: 50px; font-weight: 700; font-size: 0.875rem; border: none; cursor: pointer;">
                 Apply & Use Photo
             </button>
         </div>
