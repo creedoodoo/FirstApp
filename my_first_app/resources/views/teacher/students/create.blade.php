@@ -68,7 +68,7 @@
                 <!-- Webcam Capture Add-on Toggle -->
                 <div style="border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
                     <button type="button" id="btn-toggle-cam" style="padding: 0.4rem 0.75rem; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: var(--radius-sm); font-size: 0.8125rem; font-weight: 600; cursor: pointer; white-space: nowrap;">
-                        📷 Use Camera Photo Capture
+                        Use Camera Photo Capture
                     </button>
                     <div id="cam-container" style="display: none; margin-top: 0.75rem; text-align: center;">
                         <video id="webcam-video" width="100%" height="240" autoplay playsinline style="border-radius: var(--radius-md); background: #000; object-fit: cover;"></video>
@@ -108,27 +108,51 @@
 
     let stream = null;
 
-    // File Input Preview Handler
+    // File Input Preview Handler with Confirmation Check
     if (photoFileInput) {
         photoFileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    photoPreviewImg.src = event.target.result;
-                    photoPreviewWrap.style.display = 'block';
-                    photoPreviewLabel.innerText = 'Uploaded File Selected: ' + file.name;
-                    camDataInput.value = ''; // clear webcam capture if file chosen
-                };
-                reader.readAsDataURL(file);
+            if (!file) return;
+
+            // Prompt if camera photo was already captured
+            if (camDataInput.value !== '') {
+                const confirmReplace = confirm("You have already captured a camera photo. Do you want to remove it and use this uploaded file instead?");
+                if (!confirmReplace) {
+                    photoFileInput.value = ''; // Cancel file selection
+                    return;
+                }
+                // Clear camera data
+                camDataInput.value = '';
+                camStatus.innerText = '';
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+                camContainer.style.display = 'none';
             }
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                photoPreviewImg.src = event.target.result;
+                photoPreviewWrap.style.display = 'block';
+                photoPreviewLabel.innerText = 'Uploaded File Selected: ' + file.name;
+            };
+            reader.readAsDataURL(file);
         });
     }
 
-    // Camera Toggle Handler
+    // Camera Toggle Handler with Confirmation Check
     if (btnToggleCam) {
         btnToggleCam.addEventListener('click', async () => {
             if (camContainer.style.display === 'none') {
+                // Prompt if file was already selected
+                if (photoFileInput.files && photoFileInput.files.length > 0) {
+                    const confirmSwitch = confirm("You have already selected an uploaded photo file. Do you want to remove it and switch to camera photo capture instead?");
+                    if (!confirmSwitch) {
+                        return;
+                    }
+                    photoFileInput.value = ''; // Clear file selection
+                }
+
                 try {
                     stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
                     video.srcObject = stream;
@@ -145,9 +169,18 @@
         });
     }
 
-    // Camera Snap Photo Handler
+    // Camera Snap Photo Handler with Confirmation Check
     if (btnSnap) {
         btnSnap.addEventListener('click', () => {
+            // Prompt if file was already selected
+            if (photoFileInput.files && photoFileInput.files.length > 0) {
+                const confirmSwitch = confirm("You have already selected an uploaded photo file. Do you want to remove it and use this camera photo instead?");
+                if (!confirmSwitch) {
+                    return;
+                }
+                photoFileInput.value = ''; // Clear file selection
+            }
+
             canvas.width = video.videoWidth || 400;
             canvas.height = video.videoHeight || 300;
             const ctx = canvas.getContext('2d');
@@ -158,7 +191,7 @@
             // Show preview
             photoPreviewImg.src = dataUrl;
             photoPreviewWrap.style.display = 'block';
-            photoPreviewLabel.innerText = '📷 Camera Photo Captured!';
+            photoPreviewLabel.innerText = 'Camera Photo Captured!';
             camStatus.innerText = 'Captured!';
         });
     }
