@@ -290,6 +290,16 @@
             margin-top: auto;
             background: #FFFFFF;
         }
+
+        /* Pagination SVG icon size fix */
+        nav svg, .pagination svg, [role="navigation"] svg {
+            width: 1.25rem !important;
+            height: 1.25rem !important;
+            max-width: 1.25rem !important;
+            max-height: 1.25rem !important;
+            display: inline-block !important;
+            vertical-align: middle;
+        }
     </style>
     @yield('styles')
 </head>
