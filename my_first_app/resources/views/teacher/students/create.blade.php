@@ -59,10 +59,16 @@
 
                 <input type="hidden" name="photo_webcam" id="photo-webcam-data">
 
+                <!-- Image Live Preview Box -->
+                <div id="photo-preview-wrap" style="display: none; margin-bottom: 0.75rem; text-align: center; background: #FFFFFF; padding: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                    <img id="photo-preview-img" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid var(--color-brand); display: inline-block;">
+                    <div id="photo-preview-label" style="font-size: 0.75rem; color: var(--color-brand); font-weight: 700; margin-top: 0.35rem;">Photo Preview Ready</div>
+                </div>
+
                 <!-- Webcam Capture Add-on Toggle -->
                 <div style="border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
                     <button type="button" id="btn-toggle-cam" style="padding: 0.4rem 0.75rem; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: var(--radius-sm); font-size: 0.8125rem; font-weight: 600; cursor: pointer; white-space: nowrap;">
-                        Use Camera Photo Capture
+                        📷 Use Camera Photo Capture
                     </button>
                     <div id="cam-container" style="display: none; margin-top: 0.75rem; text-align: center;">
                         <video id="webcam-video" width="100%" height="240" autoplay playsinline style="border-radius: var(--radius-md); background: #000; object-fit: cover;"></video>
@@ -87,6 +93,11 @@
 
 @section('scripts')
 <script>
+    const photoFileInput = document.getElementById('photo-file');
+    const photoPreviewWrap = document.getElementById('photo-preview-wrap');
+    const photoPreviewImg = document.getElementById('photo-preview-img');
+    const photoPreviewLabel = document.getElementById('photo-preview-label');
+
     const btnToggleCam = document.getElementById('btn-toggle-cam');
     const camContainer = document.getElementById('cam-container');
     const video = document.getElementById('webcam-video');
@@ -97,6 +108,24 @@
 
     let stream = null;
 
+    // File Input Preview Handler
+    if (photoFileInput) {
+        photoFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    photoPreviewImg.src = event.target.result;
+                    photoPreviewWrap.style.display = 'block';
+                    photoPreviewLabel.innerText = 'Uploaded File Selected: ' + file.name;
+                    camDataInput.value = ''; // clear webcam capture if file chosen
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // Camera Toggle Handler
     if (btnToggleCam) {
         btnToggleCam.addEventListener('click', async () => {
             if (camContainer.style.display === 'none') {
@@ -105,7 +134,7 @@
                     video.srcObject = stream;
                     camContainer.style.display = 'block';
                 } catch (err) {
-                    alert('Could not access camera. Please use file upload instead.');
+                    alert('Could not access camera. Please choose an image file from your device instead.');
                 }
             } else {
                 if (stream) {
@@ -116,6 +145,7 @@
         });
     }
 
+    // Camera Snap Photo Handler
     if (btnSnap) {
         btnSnap.addEventListener('click', () => {
             canvas.width = video.videoWidth || 400;
@@ -124,7 +154,12 @@
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             const dataUrl = canvas.toDataURL('image/png');
             camDataInput.value = dataUrl;
-            camStatus.innerText = 'Photo captured!';
+            
+            // Show preview
+            photoPreviewImg.src = dataUrl;
+            photoPreviewWrap.style.display = 'block';
+            photoPreviewLabel.innerText = '📷 Camera Photo Captured!';
+            camStatus.innerText = 'Captured!';
         });
     }
 </script>
