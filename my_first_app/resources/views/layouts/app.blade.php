@@ -359,6 +359,20 @@
             font-size: 0.875rem;
             color: var(--color-muted);
         }
+
+        /* Hide duplicate unstyled mobile Previous/Next text links */
+        nav[role="navigation"] > div:first-child:not(:only-child) {
+            display: none !important;
+        }
+
+        nav[role="navigation"] > div:last-child {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            flex-wrap: wrap !important;
+            gap: 1rem !important;
+        }
     </style>
     @yield('styles')
 </head>
