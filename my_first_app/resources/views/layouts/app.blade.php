@@ -113,19 +113,25 @@
 
         .nav-link {
             text-decoration: none;
-            color: var(--color-muted);
+            color: #64748B;
             font-size: 0.9375rem;
             font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-md);
+            padding: 0.5rem 1.15rem;
+            border-radius: 50px;
             transition: var(--transition);
             white-space: nowrap;
+            background: transparent;
         }
 
-        .nav-link:hover, .nav-link.active {
-            color: var(--color-brand);
-            background-color: var(--color-brand-light);
-            font-weight: 600;
+        .nav-link:hover {
+            color: #6F0A38;
+            background-color: #FBF0F5;
+        }
+
+        .nav-link.active {
+            color: #FFFFFF !important;
+            background-color: #6F0A38 !important;
+            font-weight: 700 !important;
         }
 
         .nav-right {
@@ -382,11 +388,6 @@
     <header class="navbar">
         <div class="nav-left">
             <a href="{{ auth()->user() && auth()->user()->isAdmin() ? route('admin.dashboard') : (auth()->user() && auth()->user()->isTeacher() ? route('teacher.dashboard') : route('login')) }}" class="nav-brand">
-                <div class="brand-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
-                </div>
                 <span>Attendance System</span>
             </a>
 

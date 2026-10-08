@@ -47,7 +47,7 @@
 
         <div style="display: flex; gap: 0.5rem; flex-wrap: nowrap; align-items: center;">
             <a href="{{ route('teacher.sessions.index') }}" style="padding: 0.55rem 1.25rem; background: #FFFFFF; color: #8C0D47; border: 1px solid #FFFFFF; border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 0.875rem; white-space: nowrap; transition: var(--transition);">
-                &larr; Back to List
+                &larr; Back to Sessions
             </a>
             <button type="button" onclick="document.getElementById('add-student-session-modal').style.display='flex';" style="padding: 0.55rem 1.25rem; background: #FBF0F5; color: #8C0D47; border: 1px solid #FBF0F5; border-radius: 50px; font-weight: 800; font-size: 0.875rem; cursor: pointer; white-space: nowrap; transition: var(--transition);">
                 + Add Student to Class

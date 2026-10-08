@@ -232,20 +232,24 @@
 
         .nav-link {
             text-decoration: none;
-            color: var(--color-muted);
+            color: #64748B;
             font-size: 0.9375rem;
             font-weight: 500;
-            padding: 0.4rem 0.875rem;
-            border-radius: var(--radius-md);
+            padding: 0.5rem 1.15rem;
+            border-radius: 50px;
             transition: var(--transition);
+            background: transparent;
         }
 
-        /* Green Highlight for Current Active Section */
-        .nav-link:hover,
+        .nav-link:hover {
+            color: #6F0A38;
+            background-color: #FBF0F5;
+        }
+
         .nav-link.active {
-            color: var(--color-jade);
-            background-color: var(--color-jade-light);
-            font-weight: 600;
+            color: #FFFFFF !important;
+            background-color: #6F0A38 !important;
+            font-weight: 700 !important;
         }
 
         .nav-right {
@@ -1001,11 +1005,6 @@
     <header class="navbar">
         <div class="nav-left">
             <a href="#home" class="nav-brand">
-                <div class="brand-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
-                </div>
                 <span>Attendance System</span>
             </a>
 

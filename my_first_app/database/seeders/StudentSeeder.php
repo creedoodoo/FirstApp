@@ -22,6 +22,8 @@ class StudentSeeder extends Seeder
             ['Christian', 'Bautista'],
             ['Princess', 'Aquino'],
             ['Gabriel', 'Mendoza'],
+            ['Joseph', 'Lontok'],
+            ['Kier', 'Bardelosa']
         ];
 
         $studentCounter = 100;
@@ -30,8 +32,7 @@ class StudentSeeder extends Seeder
             foreach ($sampleNames as $nameIndex => $name) {
                 $studentCounter++;
                 $paddedCount = str_pad($studentCounter, 5, '0', STR_PAD_LEFT);
-                $secDigit = $sectionIndex + 1;
-                $studentNumber = "2024-{$paddedCount}-SR-{$secDigit}";
+                $studentNumber = "2024-{$paddedCount}-SR-0";
 
                 Student::updateOrCreate(
                     ['student_number' => $studentNumber],
