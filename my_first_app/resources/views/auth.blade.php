@@ -821,14 +821,29 @@
                         body: JSON.stringify({ email, password, remember })
                     });
 
-                    const data = await response.json();
+                    let data = {};
+                    try {
+                        data = await response.json();
+                    } catch (e) {
+                        // Response wasn't valid JSON
+                    }
 
                     if (response.ok && data.success) {
                         window.location.href = data.redirect || '/landing';
+                    } else if (response.status === 419) {
+                        showError('Session expired. Please refresh the page and try again.');
                     } else {
-                        showError(data.message || 'Invalid email or password.');
+                        let errMsg = data.message;
+                        if (!errMsg && data.errors) {
+                            const firstKey = Object.keys(data.errors)[0];
+                            if (firstKey && data.errors[firstKey].length > 0) {
+                                errMsg = data.errors[firstKey][0];
+                            }
+                        }
+                        showError(errMsg || 'Invalid email or password. Please check your credentials.');
                     }
                 } catch (err) {
+                    console.error('Login Error:', err);
                     showError('Connection error. Please try again.');
                 } finally {
                     loginBtn.disabled = false;
@@ -958,7 +973,12 @@
                         body: JSON.stringify({ name, email, password })
                     });
 
-                    const data = await response.json();
+                    let data = {};
+                    try {
+                        data = await response.json();
+                    } catch (e) {
+                        // Response wasn't valid JSON
+                    }
 
                     if (response.ok && data.success) {
                         document.getElementById('signup-form').reset();
@@ -969,10 +989,20 @@
                         loginForm.classList.remove('hidden');
                         
                         showSuccess(data.message || 'Account created successfully! Please log in below.');
+                    } else if (response.status === 419) {
+                        showError('Session expired. Please refresh the page and try again.');
                     } else {
-                        showError(data.message || 'Registration failed.');
+                        let errMsg = data.message;
+                        if (!errMsg && data.errors) {
+                            const firstKey = Object.keys(data.errors)[0];
+                            if (firstKey && data.errors[firstKey].length > 0) {
+                                errMsg = data.errors[firstKey][0];
+                            }
+                        }
+                        showError(errMsg || 'Registration failed. Please try again.');
                     }
                 } catch (err) {
+                    console.error('Signup Error:', err);
                     showError('Connection error. Please try again.');
                 } finally {
                     signupBtn.disabled = false;
