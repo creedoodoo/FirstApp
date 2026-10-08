@@ -4,17 +4,9 @@
 
 @section('content')
 <div class="card" style="margin-bottom: 2rem; background: linear-gradient(135deg, #8C0D47 0%, #6F0A38 100%); color: #FFFFFF; padding: 1.75rem 2.5rem; border-radius: 28px; box-shadow: var(--shadow-md);">
-    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 1.5rem;">
-        <div style="flex: 1; min-width: 250px;">
-            <h1 style="font-size: 1.75rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.35rem;">Admin Attendance Dashboard</h1>
-            <p style="color: rgba(255, 255, 255, 0.9); font-size: 0.9375rem; margin: 0;">BSIT 3rd Year Attendance Reports across all sections, subjects, teachers, and dates.</p>
-        </div>
-        <div>
-            <a href="{{ route('admin.export.csv', request()->query()) }}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #FFFFFF; color: #8C0D47; padding: 0.65rem 1.35rem; border-radius: 50px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: var(--transition);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C0D47" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Export CSV Report
-            </a>
-        </div>
+    <div>
+        <h1 style="font-size: 1.75rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.35rem;">Admin Attendance Dashboard</h1>
+        <p style="color: rgba(255, 255, 255, 0.9); font-size: 0.9375rem; margin: 0;">BSIT 3rd Year Attendance Reports across all sections, subjects, teachers, and dates.</p>
     </div>
 </div>
 
@@ -22,7 +14,7 @@
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
     <div class="card" style="margin-bottom: 0;">
         <div style="font-size: 0.8125rem; font-weight: 600; color: var(--color-muted); text-transform: uppercase;">Active Teachers</div>
-        <div style="font-size: 2rem; font-weight: 700; color: var(--color-dark); margin: 0.25rem 0;">{{ $totalTeachers }}</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var(--color-active-teachers); margin: 0.25rem 0;">{{ $totalTeachers }}</div>
         <div style="font-size: 0.8125rem; color: var(--color-brand); font-weight: 600;">
             <a href="{{ route('admin.approvals.index') }}" style="color: inherit; text-decoration: none;">{{ $pendingCount }} Pending Approvals &rarr;</a>
         </div>
@@ -30,13 +22,13 @@
 
     <div class="card" style="margin-bottom: 0;">
         <div style="font-size: 0.8125rem; font-weight: 600; color: var(--color-muted); text-transform: uppercase;">BSIT 3rd Year Students</div>
-        <div style="font-size: 2rem; font-weight: 700; color: var(--color-dark); margin: 0.25rem 0;">{{ $totalStudents }}</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var( --color-total-students); margin: 0.25rem 0;">{{ $totalStudents }}</div>
         <div style="font-size: 0.8125rem; color: var(--color-muted);">BSIT 3-1 to 3-4</div>
     </div>
 
     <div class="card" style="margin-bottom: 0;">
         <div style="font-size: 0.8125rem; font-weight: 600; color: var(--color-muted); text-transform: uppercase;">Active Subjects</div>
-        <div style="font-size: 2rem; font-weight: 700; color: var(--color-dark); margin: 0.25rem 0;">{{ $totalSubjects }}</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var( --color-active-subjects); margin: 0.25rem 0;">{{ $totalSubjects }}</div>
         <div style="font-size: 0.8125rem; color: var(--color-brand); font-weight: 600;">
             <a href="{{ route('admin.subjects.index') }}" style="color: inherit; text-decoration: none;">Manage Subjects &rarr;</a>
         </div>
@@ -44,7 +36,7 @@
 
     <div class="card" style="margin-bottom: 0;">
         <div style="font-size: 0.8125rem; font-weight: 600; color: var(--color-muted); text-transform: uppercase;">Total Filtered Records</div>
-        <div style="font-size: 2rem; font-weight: 700; color: var(--color-dark); margin: 0.25rem 0;">{{ $records->total() }}</div>
+        <div style="font-size: 2rem; font-weight: 700; color: var(--color-brand); margin: 0.25rem 0;">{{ $records->total() }}</div>
         <div style="font-size: 0.8125rem; color: var(--color-muted);">
             P: {{ $countPresent }} | L: {{ $countLate }} | A: {{ $countAbsent }} | E: {{ $countExcused }}
         </div>
@@ -119,8 +111,15 @@
 
 <!-- Attendance Records Table -->
 <div class="card" style="padding: 0; overflow: hidden;">
-    <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--color-border); background: #FAFBFD;">
-        <h3 style="font-size: 1.0625rem; font-weight: 700;">Attendance Log Records</h3>
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--color-border); background: #FAFBFD;">
+        <div>
+            <h3 style="font-size: 1.0625rem; font-weight: 700; margin-bottom: 0.15rem;">Attendance Log Records</h3>
+            <p style="font-size: 0.8125rem; color: var(--color-muted); margin: 0;">Exports only the active filtered records below.</p>
+        </div>
+        <a href="{{ route('admin.export.csv', request()->query()) }}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--color-brand); color: #FFFFFF; padding: 0.55rem 1.25rem; border-radius: 50px; font-weight: 700; font-size: 0.8125rem; text-decoration: none; white-space: nowrap; transition: var(--transition);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export Filtered CSV
+        </a>
     </div>
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem;">

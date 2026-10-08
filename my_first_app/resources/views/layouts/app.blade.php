@@ -25,6 +25,9 @@
             --color-warning: #F59E0B;
             --color-danger: #EF4444;
             --color-info: #3B82F6;
+            --color-active-teachers: #18ad63;
+            --color-total-students: #f08c00;
+            --color-active-subjects: #87127f;
             --radius-sm: 6px;
             --radius-md: 10px;
             --radius-lg: 16px;
@@ -291,7 +294,7 @@
             background: #FFFFFF;
         }
 
-        /* Pagination SVG icon size fix */
+        /* Pagination SVG icon size fix & Clean Pill Styling */
         nav svg, .pagination svg, [role="navigation"] svg {
             width: 1.25rem !important;
             height: 1.25rem !important;
@@ -299,6 +302,62 @@
             max-height: 1.25rem !important;
             display: inline-block !important;
             vertical-align: middle;
+        }
+
+        nav[role="navigation"] {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: var(--color-muted);
+        }
+
+        nav[role="navigation"] a {
+            text-decoration: none !important;
+            color: var(--color-dark) !important;
+            padding: 0.4rem 0.85rem;
+            border: 1px solid var(--color-border);
+            border-radius: 50px;
+            background: #FFFFFF;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav[role="navigation"] a:hover {
+            background-color: var(--color-brand-light) !important;
+            color: var(--color-brand) !important;
+            border-color: var(--color-brand) !important;
+        }
+
+        nav[role="navigation"] span[aria-current="page"] span {
+            background-color: var(--color-brand) !important;
+            color: #FFFFFF !important;
+            border-color: var(--color-brand) !important;
+            padding: 0.4rem 0.85rem;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-flex;
+        }
+
+        nav[role="navigation"] span[aria-disabled="true"] span {
+            color: #94A3B8 !important;
+            background-color: #F8FAFC !important;
+            border: 1px solid #E2E8F0 !important;
+            padding: 0.4rem 0.85rem;
+            border-radius: 50px;
+            cursor: not-allowed;
+            display: inline-flex;
+        }
+
+        nav[role="navigation"] p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: var(--color-muted);
         }
     </style>
     @yield('styles')
