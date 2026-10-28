@@ -23,6 +23,7 @@ class AdminSeeder extends Seeder
                 'password'      => $passwordHash,
                 'role'          => 'admin',
                 'is_approved'   => true,
+                'is_active'     => true,
             ]
         );
 
@@ -30,6 +31,7 @@ class AdminSeeder extends Seeder
         User::query()->where('role', 'teacher')->whereNull('is_approved')->update([
             'role'        => 'admin',
             'is_approved' => true,
+            'is_active'   => true,
         ]);
     }
 }

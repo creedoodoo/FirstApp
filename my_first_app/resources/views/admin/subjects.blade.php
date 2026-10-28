@@ -15,30 +15,33 @@
 
 <!-- Subjects Table Card -->
 <div class="card" style="padding: 0; overflow: hidden;">
-    <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--color-border); background: #FAFBFD;">
-        <h3 style="font-size: 1.0625rem; font-weight: 700;">Official BSIT Subject List</h3>
+    <div class="table-card-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); background: var(--color-brand-header); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+        <h3 style="font-size: 1.0625rem; font-weight: 700; color: var(--color-dark); margin: 0;">Official BSIT Subject List</h3>
+        <span style="background: #FFFFFF; color: var(--color-brand); padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700; font-size: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.12);">
+            {{ $subjects->count() }} SUBJECTS
+        </span>
     </div>
 
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem;">
             <thead>
-                <tr style="background: #F8FAFC; border-bottom: 1px solid var(--color-border); color: var(--color-muted); font-size: 0.75rem; text-transform: uppercase;">
-                    <th style="padding: 0.875rem 1.25rem;">Subject Code</th>
-                    <th style="padding: 0.875rem 1.25rem;">Subject Name</th>
-                    <th style="padding: 0.875rem 1.25rem;">Status</th>
-                    <th style="padding: 0.875rem 1.25rem; text-align: right;">Action</th>
+                <tr style="background: #F8FAFC; border-bottom: 1px solid var(--color-border); color: var(--color-dark); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Subject Code</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Subject Name</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Status</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: right;">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($subjects as $sub)
                     <tr style="border-bottom: 1px solid #F1F5F9;">
-                        <td style="padding: 0.875rem 1.25rem; font-weight: 700; font-family: monospace; font-size: 0.9375rem; color: var(--color-brand);">
+                        <td style="padding: 0.875rem 1.25rem; font-weight: 700; font-family: monospace; font-size: 0.9375rem; color: var(--color-brand); vertical-align: middle; text-align: left;">
                             {{ $sub->code }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem; font-weight: 600; color: var(--color-dark);">
+                        <td style="padding: 0.875rem 1.25rem; font-weight: 600; color: var(--color-dark); vertical-align: middle; text-align: left;">
                             {{ $sub->name }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem;">
+                        <td style="padding: 0.875rem 1.25rem; vertical-align: middle; text-align: left;">
                             @if($sub->is_active)
                                 <span style="background: #D1FAE5; color: #065F46; padding: 0.25rem 0.6rem; border-radius: 20px; font-weight: 700; font-size: 0.75rem;">
                                     ACTIVE
@@ -49,13 +52,16 @@
                                 </span>
                             @endif
                         </td>
-                        <td style="padding: 0.875rem 1.25rem; text-align: right;">
-                            <form action="{{ route('admin.subjects.toggle', $sub->id) }}" method="POST" style="margin: 0;">
-                                @csrf
-                                <button type="submit" style="padding: 0.4rem 0.85rem; background: {{ $sub->is_active ? '#EF4444' : '#10B981' }}; color: #FFF; border: none; border-radius: var(--radius-md); font-size: 0.8125rem; font-weight: 600; cursor: pointer;">
-                                    {{ $sub->is_active ? 'Deactivate' : 'Activate' }}
-                                </button>
-                            </form>
+                        <td style="padding: 0.875rem 1.25rem; text-align: right; vertical-align: middle;">
+                            <button type="button" onclick="openConfirmModal({
+                                title: '{{ $sub->is_active ? 'Deactivate Subject' : 'Activate Subject' }}',
+                                message: 'Are you sure you want to {{ $sub->is_active ? 'deactivate' : 'activate' }} {{ $sub->code }} ({{ $sub->name }})?',
+                                actionUrl: '{{ route('admin.subjects.toggle', $sub->id) }}',
+                                buttonText: '{{ $sub->is_active ? 'Deactivate' : 'Activate' }}',
+                                buttonColor: '{{ $sub->is_active ? '#EF4444' : '#10B981' }}'
+                            })" style="padding: 0.45rem 1rem; background: {{ $sub->is_active ? '#EF4444' : '#10B981' }}; color: #FFF; border: none; border-radius: 50px; font-size: 0.8125rem; font-weight: 700; cursor: pointer; transition: var(--transition);">
+                                {{ $sub->is_active ? 'Deactivate' : 'Activate' }}
+                            </button>
                         </td>
                     </tr>
                 @empty

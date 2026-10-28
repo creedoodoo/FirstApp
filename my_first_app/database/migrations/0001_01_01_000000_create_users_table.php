@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['admin', 'teacher'])->default('teacher');
             $table->boolean('is_approved')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

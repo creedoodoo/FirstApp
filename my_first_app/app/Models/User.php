@@ -17,6 +17,7 @@ class User extends Authenticatable
         'password',
         'role',
         'is_approved',
+        'is_active',
     ];
 
     protected $hidden = [
@@ -29,6 +30,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'is_approved'       => 'boolean',
+            'is_active'         => 'boolean',
         ];
     }
 
@@ -45,6 +47,11 @@ class User extends Authenticatable
     public function isApproved(): bool
     {
         return (bool) $this->is_approved;
+    }
+
+    public function isActive(): bool
+    {
+        return (bool) ($this->is_active ?? true);
     }
 
     public function classes()

@@ -14,6 +14,7 @@
     <style>
         :root {
             --color-brand: #8C0D47;
+            --color-brand-header: #ffe9f1; /* Lighter version of the brand color for table headers */
             --color-brand-hover: #6F0A38;
             --color-brand-light: #FBF0F5;
             --color-bg: #F8F9FA;
@@ -235,6 +236,83 @@
             margin-bottom: 1.5rem;
         }
 
+        /* Universal Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+
+        /* Card Header Bar above Tables (Brand Header Color) */
+        .table-card-header {
+            padding: 1.25rem 1.5rem;
+            background-color: var(--color-brand-header) !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .table-card-header h3,
+        .table-card-header h2,
+        .table-card-header h1 {
+            color: var(--color-dark, #1E293B) !important;
+            margin: 0;
+            font-size: 1.0625rem;
+            font-weight: 700;
+        }
+
+        .table-card-header p {
+            color: var(--color-muted, #64748B);
+        }
+
+        /* Elements inside card header bar (pills, badges, buttons) remain on white pill */
+        .table-card-header .badge,
+        .table-card-header .pill,
+        .table-card-header span[style*="border-radius"],
+        .table-card-header a[style*="border-radius"],
+        .table-card-header button[style*="border-radius"] {
+            background-color: #FFFFFF !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Category Rows (Table thead) */
+        table thead tr {
+            background-color: #F8FAFC !important;
+            color: var(--color-dark, #1E293B) !important;
+            border-bottom: 1px solid var(--color-border) !important;
+        }
+
+        table thead th {
+            background-color: #F8FAFC !important;
+            color: var(--color-dark, #1E293B) !important;
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.05em !important;
+            text-transform: uppercase !important;
+            vertical-align: middle !important;
+            border: none !important;
+            border-bottom: 1px solid var(--color-border) !important;
+            padding: 0.875rem 1.25rem !important;
+        }
+
+        #btn-submit-confirm {
+            color: #FFFFFF !important;
+        }
+
+        table tbody tr {
+            border-bottom: 1px solid var(--color-border);
+            transition: var(--transition);
+        }
+
+        table tbody td {
+            vertical-align: middle !important;
+            padding: 0.875rem 1.25rem;
+        }
+
         /* Sign Out Modal */
         .modal-overlay {
             position: fixed;
@@ -431,14 +509,32 @@
     <!-- Main Container -->
     <main class="container">
         @if(session('success'))
-            <div class="alert alert-success">
-                <span>{{ session('success') }}</span>
+            <div class="alert alert-success" style="display: flex; align-items: center; justify-content: space-between; gap: 0.85rem; background-color: #ECFDF5; color: #065F46; border: 1.5px solid #10B981; border-radius: var(--radius-md); padding: 0.875rem 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="width: 28px; height: 28px; border-radius: 50%; background: #10B981; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <div>
+                        <strong style="color: #065F46; font-size: 0.9375rem; display: block;">Action Completed</strong>
+                        <span style="font-size: 0.875rem; color: #047857; font-weight: 500;">{{ session('success') }}</span>
+                    </div>
+                </div>
+                <button type="button" onclick="this.parentElement.style.display='none';" style="background: none; border: none; color: #065F46; font-size: 1.35rem; cursor: pointer; line-height: 1; padding: 0.25rem 0.5rem; opacity: 0.7;" title="Dismiss">&times;</button>
             </div>
         @endif
 
         @if(session('error'))
-            <div class="alert alert-error">
-                <span>{{ session('error') }}</span>
+            <div class="alert alert-error" style="display: flex; align-items: center; justify-content: space-between; gap: 0.85rem; background-color: #FEF2F2; color: #991B1B; border: 1.5px solid #EF4444; border-radius: var(--radius-md); padding: 0.875rem 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.12);">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="width: 28px; height: 28px; border-radius: 50%; background: #EF4444; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </div>
+                    <div>
+                        <strong style="color: #991B1B; font-size: 0.9375rem; display: block;">Notice</strong>
+                        <span style="font-size: 0.875rem; color: #B91C1C; font-weight: 500;">{{ session('error') }}</span>
+                    </div>
+                </div>
+                <button type="button" onclick="this.parentElement.style.display='none';" style="background: none; border: none; color: #991B1B; font-size: 1.35rem; cursor: pointer; line-height: 1; padding: 0.25rem 0.5rem; opacity: 0.7;" title="Dismiss">&times;</button>
             </div>
         @endif
 
@@ -455,6 +551,30 @@
                 <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
                     @csrf
                     <button type="submit" class="btn-red">Sign Out</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Universal Action Confirmation Modal -->
+    <div id="universal-confirm-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card" style="text-align: center; max-width: 420px; border-radius: 24px; padding: 2rem;">
+            <div id="confirm-modal-icon-wrap" style="width: 52px; height: 52px; border-radius: 50%; background: #FEE2E2; color: #DC2626; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;">
+                <svg id="confirm-modal-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+            </div>
+            <h3 id="confirm-modal-title" style="margin-bottom: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--color-dark);">Confirm Action</h3>
+            <p id="confirm-modal-message" style="color: var(--color-muted); font-size: 0.9375rem; margin-bottom: 1.5rem; line-height: 1.5;">Are you sure you want to proceed?</p>
+            <div class="modal-actions" style="margin-top: 0; justify-content: center; gap: 0.75rem;">
+                <button type="button" id="btn-cancel-confirm" class="btn-neutral" style="border-radius: 50px; padding: 0.6rem 1.25rem; font-weight: 600;">Cancel</button>
+                <form id="confirm-modal-form" action="" method="POST" style="margin: 0;">
+                    @csrf
+                    <button type="submit" id="btn-submit-confirm" class="btn-primary" style="padding: 0.65rem 1.5rem; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; color: #FFFFFF !important; font-size: 0.875rem;">
+                        Proceed
+                    </button>
                 </form>
             </div>
         </div>
@@ -479,6 +599,50 @@
             if (cancelModalBtn && logoutModal) {
                 cancelModalBtn.addEventListener('click', () => {
                     logoutModal.style.display = 'none';
+                });
+            }
+
+            // Universal Confirmation Modal Logic
+            const confirmModal = document.getElementById('universal-confirm-modal');
+            const confirmTitle = document.getElementById('confirm-modal-title');
+            const confirmMsg = document.getElementById('confirm-modal-message');
+            const confirmForm = document.getElementById('confirm-modal-form');
+            const confirmSubmit = document.getElementById('btn-submit-confirm');
+            const confirmCancel = document.getElementById('btn-cancel-confirm');
+            const iconWrap = document.getElementById('confirm-modal-icon-wrap');
+
+            window.openConfirmModal = function({ title, message, actionUrl, buttonText, buttonColor, iconType }) {
+                if (!confirmModal) return;
+
+                confirmTitle.textContent = title || 'Confirm Action';
+                confirmMsg.textContent = message || 'Are you sure you want to proceed?';
+                confirmForm.action = actionUrl || '';
+                confirmSubmit.textContent = buttonText || 'Proceed';
+                confirmSubmit.style.background = buttonColor || 'var(--color-brand)';
+                confirmSubmit.style.color = '#FFFFFF';
+
+                if (buttonColor === '#10B981' || buttonColor === '#059669') {
+                    iconWrap.style.background = '#ECFDF5';
+                    iconWrap.style.color = '#059669';
+                } else if (buttonColor === '#EF4444' || buttonColor === '#DC2626') {
+                    iconWrap.style.background = '#FEF2F2';
+                    iconWrap.style.color = '#DC2626';
+                } else {
+                    iconWrap.style.background = 'var(--color-brand-light)';
+                    iconWrap.style.color = 'var(--color-brand)';
+                }
+
+                confirmModal.style.display = 'flex';
+            };
+
+            if (confirmCancel && confirmModal) {
+                confirmCancel.addEventListener('click', () => {
+                    confirmModal.style.display = 'none';
+                });
+                confirmModal.addEventListener('click', (e) => {
+                    if (e.target === confirmModal) {
+                        confirmModal.style.display = 'none';
+                    }
                 });
             }
         });

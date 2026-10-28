@@ -49,33 +49,36 @@
 
 <!-- Attendance Record History Table (Teacher Scoped) -->
 <div class="card" style="padding: 0; overflow: hidden;">
-    <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--color-border); background: #FAFBFD;">
-        <h3 style="font-size: 1.0625rem; font-weight: 700;">Attendance History in Your Classes</h3>
+    <div class="table-card-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); background: var(--color-brand-header); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+        <h3 style="font-size: 1.0625rem; font-weight: 700; color: var(--color-dark); margin: 0;">Attendance History in Your Classes</h3>
+        <span style="background: #FFFFFF; color: var(--color-brand); padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700; font-size: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.12);">
+            {{ $records->count() }} RECORDS
+        </span>
     </div>
 
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem;">
             <thead>
-                <tr style="background: #F8FAFC; border-bottom: 1px solid var(--color-border); color: var(--color-muted); font-size: 0.75rem; text-transform: uppercase;">
-                    <th style="padding: 0.875rem 1.25rem;">Date</th>
-                    <th style="padding: 0.875rem 1.25rem;">Subject Code & Name</th>
-                    <th style="padding: 0.875rem 1.25rem;">Status</th>
-                    <th style="padding: 0.875rem 1.25rem;">Time In</th>
-                    <th style="padding: 0.875rem 1.25rem;">Left Early</th>
-                    <th style="padding: 0.875rem 1.25rem;">Remarks</th>
+                <tr style="background: #F8FAFC; border-bottom: 1px solid var(--color-border); color: var(--color-dark); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Date</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Subject Code & Name</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Status</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Time In</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Left Early</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Remarks</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($records as $rec)
                     <tr style="border-bottom: 1px solid #F1F5F9;">
-                        <td style="padding: 0.875rem 1.25rem; font-weight: 600;">
+                        <td style="padding: 0.875rem 1.25rem; font-weight: 600; vertical-align: middle; text-align: left;">
                             {{ optional($rec->session)->session_date ? $rec->session->session_date->format('M d, Y') : 'N/A' }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem;">
+                        <td style="padding: 0.875rem 1.25rem; vertical-align: middle; text-align: left;">
                             <span style="font-weight: 700; color: var(--color-brand); font-family: monospace;">{{ optional(optional($rec->session)->schoolClass->subject)->code }}</span>
                             - {{ optional(optional($rec->session)->schoolClass->subject)->name }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem;">
+                        <td style="padding: 0.875rem 1.25rem; vertical-align: middle; text-align: left;">
                             @if($rec->status === 'present')
                                 <span style="background: #D1FAE5; color: #065F46; padding: 0.25rem 0.6rem; border-radius: 20px; font-weight: 700; font-size: 0.75rem;">PRESENT</span>
                             @elseif($rec->status === 'late')
@@ -88,17 +91,17 @@
                                 <span style="background: #F1F5F9; color: #64748B; padding: 0.25rem 0.6rem; border-radius: 20px; font-weight: 600; font-size: 0.75rem;">UNMARKED</span>
                             @endif
                         </td>
-                        <td style="padding: 0.875rem 1.25rem; color: var(--color-muted);">
+                        <td style="padding: 0.875rem 1.25rem; color: var(--color-muted); vertical-align: middle; text-align: left;">
                             {{ $rec->time_in ? $rec->time_in->format('g:i A') : '-' }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem;">
+                        <td style="padding: 0.875rem 1.25rem; vertical-align: middle; text-align: left;">
                             @if($rec->left_early)
                                 <span style="color: #DC2626; font-weight: 600;">Yes ({{ $rec->left_at ? $rec->left_at->format('g:i A') : 'Early' }})</span>
                             @else
                                 <span style="color: var(--color-muted);">No</span>
                             @endif
                         </td>
-                        <td style="padding: 0.875rem 1.25rem; color: var(--color-muted);">
+                        <td style="padding: 0.875rem 1.25rem; color: var(--color-muted); vertical-align: middle; text-align: left;">
                             {{ $rec->remarks ?? '-' }}
                         </td>
                     </tr>

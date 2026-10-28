@@ -21,7 +21,7 @@ class AuthController extends Controller
             $user = User::find(session('user_id'));
             if ($user && method_exists($user, 'isAdmin') && $user->isAdmin()) {
                 return redirect()->route('admin.dashboard');
-            } elseif ($user && method_exists($user, 'isTeacher') && method_exists($user, 'isApproved') && $user->isTeacher() && $user->isApproved()) {
+            } elseif ($user && method_exists($user, 'isTeacher') && method_exists($user, 'isApproved') && $user->isTeacher() && $user->isApproved() && $user->isActive()) {
                 return redirect()->route('teacher.dashboard');
             }
             return redirect()->route('landing');
@@ -36,7 +36,7 @@ class AuthController extends Controller
                     session(['user_id' => $user->id]);
                     if (method_exists($user, 'isAdmin') && $user->isAdmin()) {
                         return redirect()->route('admin.dashboard');
-                    } elseif (method_exists($user, 'isTeacher') && method_exists($user, 'isApproved') && $user->isTeacher() && $user->isApproved()) {
+                    } elseif (method_exists($user, 'isTeacher') && method_exists($user, 'isApproved') && $user->isTeacher() && $user->isApproved() && $user->isActive()) {
                         return redirect()->route('teacher.dashboard');
                     }
                     return redirect()->route('landing');
@@ -139,6 +139,12 @@ class AuthController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Your account is pending admin approval. Please wait for an administrator to approve your registration.'
+                ], 403);
+            }
+            if ($user->isTeacher() && method_exists($user, 'isActive') && !$user->isActive()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Your teacher account has been deactivated. Please contact the administrator.'
                 ], 403);
             }
         }

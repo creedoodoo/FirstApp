@@ -668,16 +668,22 @@
                         >
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="position: relative;">
                         <label class="form-label" for="signup-email">Email address</label>
-                        <input 
-                            type="email" 
-                            id="signup-email" 
-                            class="form-input" 
-                            placeholder="name@example.com" 
-                            autocomplete="email" 
-                            required
-                        >
+                        <div style="position: relative;">
+                            <input 
+                                type="email" 
+                                id="signup-email" 
+                                class="form-input" 
+                                placeholder="name@example.com" 
+                                autocomplete="email" 
+                                required
+                            >
+                            <div id="signup-email-tooltip" style="display: none; position: absolute; bottom: calc(100% + 6px); left: 0; background: #EF4444; color: #FFFFFF; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25); z-index: 100; pointer-events: none; white-space: nowrap;">
+                                Email must include an '@' symbol
+                                <div style="position: absolute; top: 100%; left: 16px; border: 5px solid transparent; border-top-color: #EF4444;"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -902,6 +908,33 @@
                     strengthText.style.color = '#10B981';
                 }
             });
+
+            // Live Email Validation for Signup (@ Symbol Check)
+            const signupEmailInput = document.getElementById('signup-email');
+            const signupEmailTooltip = document.getElementById('signup-email-tooltip');
+
+            function checkSignupEmailValidation() {
+                if (!signupEmailInput) return;
+                const val = signupEmailInput.value.trim();
+                if (val.length > 0 && !val.includes('@')) {
+                    signupEmailInput.style.borderColor = '#EF4444';
+                    signupEmailInput.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.2)';
+                    if (signupEmailTooltip) signupEmailTooltip.style.display = 'block';
+                } else {
+                    signupEmailInput.style.borderColor = '';
+                    signupEmailInput.style.boxShadow = '';
+                    if (signupEmailTooltip) signupEmailTooltip.style.display = 'none';
+                }
+            }
+
+            if (signupEmailInput) {
+                signupEmailInput.addEventListener('input', checkSignupEmailValidation);
+                signupEmailInput.addEventListener('change', checkSignupEmailValidation);
+                signupEmailInput.addEventListener('focus', checkSignupEmailValidation);
+                signupEmailInput.addEventListener('blur', () => {
+                    if (signupEmailTooltip) signupEmailTooltip.style.display = 'none';
+                });
+            }
 
             // Toggle Password Visibility (Eye Icon)
             document.querySelectorAll('.toggle-password-btn').forEach(btn => {

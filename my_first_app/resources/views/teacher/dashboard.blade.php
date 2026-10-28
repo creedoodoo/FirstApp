@@ -75,53 +75,53 @@
 
 <!-- Recent Sessions Card -->
 <div class="card" style="padding: 0; overflow: hidden;">
-    <div style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--color-border); background: #FAFBFD; display: flex; align-items: center; justify-content: space-between;">
-        <h3 style="font-size: 1.0625rem; font-weight: 700;">Recent Sessions</h3>
-        <a href="{{ route('teacher.sessions.index') }}" style="color: var(--color-brand); font-weight: 600; font-size: 0.875rem; text-decoration: none;">View All Sessions &rarr;</a>
+    <div class="table-card-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); background: var(--color-brand-header); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+        <h3 style="font-size: 1.0625rem; font-weight: 700; color: var(--color-dark); margin: 0;">Recent Sessions</h3>
+        <a href="{{ route('teacher.sessions.index') }}" style="background: #FFFFFF; color: var(--color-brand); padding: 0.35rem 0.85rem; border-radius: 50px; font-weight: 700; font-size: 0.8125rem; text-decoration: none; box-shadow: 0 1px 3px rgba(0,0,0,0.12); transition: var(--transition);">View All Sessions &rarr;</a>
     </div>
 
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem;">
             <thead>
-                <tr style="background: #F8FAFC; border-bottom: 1px solid var(--color-border); color: var(--color-muted); font-size: 0.75rem; text-transform: uppercase;">
-                    <th style="padding: 0.875rem 1.25rem;">Date</th>
-                    <th style="padding: 0.875rem 1.25rem;">Subject</th>
-                    <th style="padding: 0.875rem 1.25rem;">Section</th>
-                    <th style="padding: 0.875rem 1.25rem;">Status</th>
-                    <th style="padding: 0.875rem 1.25rem; text-align: right;">Action</th>
+                <tr style="background: #F8FAFC; border-bottom: 1px solid var(--color-border); color: var(--color-dark); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Date</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Subject</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Section</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Status</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: right;">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($recentSessions as $sess)
                     <tr style="border-bottom: 1px solid #F1F5F9;">
-                        <td style="padding: 0.875rem 1.25rem; font-weight: 600;">
+                        <td style="padding: 0.875rem 1.25rem; font-weight: 600; vertical-align: middle; text-align: left;">
                             {{ $sess->session_date->format('M d, Y') }}
                             @if($sess->is_makeup)
                                 <span style="background: #FEF3C7; color: #92400E; font-size: 0.7rem; padding: 0.15rem 0.4rem; border-radius: 4px; margin-left: 0.35rem;">MAKEUP</span>
                             @endif
                         </td>
-                        <td style="padding: 0.875rem 1.25rem;">
+                        <td style="padding: 0.875rem 1.25rem; vertical-align: middle; text-align: left;">
                             {{ optional(optional($sess->schoolClass)->subject)->code }} - {{ optional(optional($sess->schoolClass)->subject)->name }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem; font-weight: 600;">
+                        <td style="padding: 0.875rem 1.25rem; font-weight: 600; vertical-align: middle; text-align: left;">
                             {{ optional($sess->schoolClass)->section }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem;">
+                        <td style="padding: 0.875rem 1.25rem; vertical-align: middle; text-align: left;">
                             @if($sess->status === 'submitted')
                                 <span style="background: #D1FAE5; color: #065F46; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 700; font-size: 0.75rem;">SUBMITTED</span>
                             @else
                                 <span style="background: #FEF3C7; color: #92400E; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 700; font-size: 0.75rem;">DRAFT</span>
                             @endif
                         </td>
-                        <td style="padding: 0.875rem 1.25rem; text-align: right;">
-                            <a href="{{ route('teacher.sessions.sheet', $sess->id) }}" style="color: var(--color-brand); font-weight: 600; text-decoration: none;">
+                        <td style="padding: 0.875rem 1.25rem; text-align: right; vertical-align: middle;">
+                            <a href="{{ route('teacher.sessions.sheet', $sess->id) }}" style="color: var(--color-brand); font-weight: 700; text-decoration: none;">
                                 Open Sheet &rarr;
                             </a>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" style="padding: 2.5rem; text-align: center; color: var(--color-muted);">
+                        <td colspan="5" style="padding: 2.5rem; text-align: center; color: var(--color-muted); vertical-align: middle;">
                             No recent attendance sessions found.
                         </td>
                     </tr>

@@ -111,55 +111,55 @@
 
 <!-- Attendance Records Table -->
 <div class="card" style="padding: 0; overflow: hidden;">
-    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--color-border); background: #FAFBFD;">
+    <div class="table-card-header" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); background: var(--color-brand-header);">
         <div>
-            <h3 style="font-size: 1.0625rem; font-weight: 700; margin-bottom: 0.15rem;">Attendance Log Records</h3>
+            <h3 style="font-size: 1.0625rem; font-weight: 700; margin-bottom: 0.15rem; color: var(--color-dark);">Attendance Log Records</h3>
             <p style="font-size: 0.8125rem; color: var(--color-muted); margin: 0;">Exports only the active filtered records below.</p>
         </div>
-        <a href="{{ route('admin.export.csv', request()->query()) }}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--color-brand); color: #FFFFFF; padding: 0.55rem 1.25rem; border-radius: 50px; font-weight: 700; font-size: 0.8125rem; text-decoration: none; white-space: nowrap; transition: var(--transition);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <a href="{{ route('admin.export.csv', request()->query()) }}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #FFFFFF; color: var(--color-brand); padding: 0.55rem 1.25rem; border-radius: 50px; font-weight: 700; font-size: 0.8125rem; text-decoration: none; white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,0.12); transition: var(--transition);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Export Filtered CSV
         </a>
     </div>
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem;">
             <thead>
-                <tr style="background: #F8FAFC; border-bottom: 1px solid var(--color-border); color: var(--color-muted); font-size: 0.75rem; text-transform: uppercase;">
-                    <th style="padding: 0.875rem 1.25rem;">Date</th>
-                    <th style="padding: 0.875rem 1.25rem;">Student Number</th>
-                    <th style="padding: 0.875rem 1.25rem;">Student Name</th>
-                    <th style="padding: 0.875rem 1.25rem;">Section</th>
-                    <th style="padding: 0.875rem 1.25rem;">Subject</th>
-                    <th style="padding: 0.875rem 1.25rem;">Teacher</th>
-                    <th style="padding: 0.875rem 1.25rem;">Status</th>
-                    <th style="padding: 0.875rem 1.25rem;">Time In / Left</th>
-                    <th style="padding: 0.875rem 1.25rem;">Remarks</th>
+                <tr style="background: #F8FAFC; border-bottom: 1px solid var(--color-border); color: var(--color-dark); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Date</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Student Number</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Student Name</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Section</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Subject</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Teacher</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Status</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Time In / Left</th>
+                    <th style="padding: 0.875rem 1.25rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Remarks</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($records as $rec)
                     <tr style="border-bottom: 1px solid #F1F5F9;">
-                        <td style="padding: 0.875rem 1.25rem; font-weight: 600;">
+                        <td style="padding: 0.875rem 1.25rem; font-weight: 600; vertical-align: middle; text-align: left;">
                             {{ optional($rec->session)->session_date ? $rec->session->session_date->format('M d, Y') : 'N/A' }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem; font-family: monospace;">
+                        <td style="padding: 0.875rem 1.25rem; font-family: monospace; vertical-align: middle; text-align: left;">
                             {{ optional($rec->student)->student_number ?? 'N/A' }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem; font-weight: 600;">
+                        <td style="padding: 0.875rem 1.25rem; font-weight: 600; vertical-align: middle; text-align: left;">
                             {{ optional($rec->student)->full_name ?? 'N/A' }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem;">
+                        <td style="padding: 0.875rem 1.25rem; vertical-align: middle; text-align: left;">
                             <span style="background: #F1F5F9; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; font-size: 0.75rem;">
                                 {{ optional($rec->student)->section ?? 'N/A' }}
                             </span>
                         </td>
-                        <td style="padding: 0.875rem 1.25rem;">
+                        <td style="padding: 0.875rem 1.25rem; vertical-align: middle; text-align: left;">
                             {{ optional(optional($rec->session)->schoolClass->subject)->code ?? 'N/A' }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem;">
+                        <td style="padding: 0.875rem 1.25rem; vertical-align: middle; text-align: left;">
                             {{ optional(optional($rec->session)->schoolClass->teacher)->name ?? 'N/A' }}
                         </td>
-                        <td style="padding: 0.875rem 1.25rem;">
+                        <td style="padding: 0.875rem 1.25rem; vertical-align: middle; text-align: left;">
                             @if($rec->status === 'present')
                                 <span style="background: #D1FAE5; color: #065F46; padding: 0.25rem 0.6rem; border-radius: 20px; font-weight: 700; font-size: 0.75rem;">PRESENT</span>
                             @elseif($rec->status === 'late')
@@ -172,11 +172,11 @@
                                 <span style="background: #F1F5F9; color: #64748B; padding: 0.25rem 0.6rem; border-radius: 20px; font-weight: 600; font-size: 0.75rem;">UNMARKED</span>
                             @endif
                         </td>
-                        <td style="padding: 0.875rem 1.25rem; font-size: 0.8125rem; color: var(--color-muted);">
+                        <td style="padding: 0.875rem 1.25rem; font-size: 0.8125rem; color: var(--color-muted); vertical-align: middle; text-align: left;">
                             @if($rec->time_in) In: {{ $rec->time_in->format('g:i A') }} @endif
                             @if($rec->left_early) <br><span style="color: #DC2626;">Left: {{ $rec->left_at ? $rec->left_at->format('g:i A') : 'Yes' }}</span> @endif
                         </td>
-                        <td style="padding: 0.875rem 1.25rem; font-size: 0.8125rem; color: var(--color-muted);">
+                        <td style="padding: 0.875rem 1.25rem; font-size: 0.8125rem; color: var(--color-muted); vertical-align: middle; text-align: left;">
                             {{ $rec->remarks ?? '-' }}
                         </td>
                     </tr>

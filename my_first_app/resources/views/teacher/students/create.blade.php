@@ -19,6 +19,17 @@
         <form action="{{ route('teacher.students.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
+            @if ($errors->any())
+                <div style="margin-bottom: 1.25rem; padding: 0.85rem 1.25rem; background: #FEF2F2; border: 1px solid #FCA5A5; border-radius: var(--radius-md); color: #DC2626; font-size: 0.8125rem;">
+                    <strong>Registration could not be completed:</strong>
+                    <ul style="margin: 0.35rem 0 0 1.25rem; padding: 0;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                 <div>
                     <label style="display: block; font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.35rem;">First Name *</label>
@@ -57,6 +68,7 @@
                 
                 <input type="file" name="photo" accept="image/*" id="photo-file" style="width: 100%; margin-bottom: 0.75rem; font-size: 0.8125rem;">
                 <input type="hidden" name="photo_webcam" id="photo-webcam-data">
+                @error('photo') <span style="color: #DC2626; font-size: 0.75rem; display: block; margin-bottom: 0.5rem;">{{ $message }}</span> @enderror
 
                 <!-- Image Live Preview Box -->
                 <div id="photo-preview-wrap" style="display: none; margin-bottom: 0.75rem; text-align: center; background: #FFFFFF; padding: 0.875rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
@@ -292,6 +304,7 @@
             photoPreviewLabel.innerText = 'Uploaded Photo Adjusted & Crop Ready!';
             btnReAdjustPhoto.style.display = 'inline-block';
             camDataInput.value = croppedDataUrl;
+            photoFileInput.value = ''; // Clear heavy raw file input so only optimized cropped image submits
             cropModal.style.display = 'none';
         });
     }

@@ -45,6 +45,18 @@ class RoleMiddleware
             return redirect()->route('login')->with('error', 'Your teacher account is pending admin approval.');
         }
 
+        // Teacher active check
+        if ($user->isTeacher() && !$user->isActive()) {
+            session()->forget('user_id');
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Your teacher account has been deactivated.'
+                ], 403);
+            }
+            return redirect()->route('login')->with('error', 'Your teacher account has been deactivated. Please contact the administrator.');
+        }
+
         // Role check
         if ($user->role !== $role) {
             if ($request->expectsJson()) {

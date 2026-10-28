@@ -6,7 +6,8 @@
 <div style="max-width: 640px; margin: 0 auto;">
     <div style="text-align: center; margin-bottom: 2rem;">
         <h1 style="font-size: 1.75rem; font-weight: 700;">Student Lookup</h1>
-        <p style="color: var(--color-muted);">Search BSIT 3rd Year students by student number (Format: <code>2024-00452-SR-0</code>).</p>
+        <p style="color: var(--color-muted);">Search BSIT 3rd Year students by student number</p>
+         <p style="color: var(--color-muted);">(Format: <code>2024-00XXX-SR-0</code>).</p>
     </div>
 
     <!-- Search Form Card -->

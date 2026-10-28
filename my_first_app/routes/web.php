@@ -54,6 +54,8 @@ Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::get('/approvals', [AdminApproval::class, 'index'])->name('approvals.index');
     Route::post('/approvals/{user}/approve', [AdminApproval::class, 'approve'])->name('approvals.approve');
     Route::post('/approvals/{user}/reject', [AdminApproval::class, 'reject'])->name('approvals.reject');
+    Route::post('/approvals/{user}/deactivate', [AdminApproval::class, 'deactivate'])->name('approvals.deactivate');
+    Route::post('/approvals/{user}/reactivate', [AdminApproval::class, 'reactivate'])->name('approvals.reactivate');
 
     // Subject Management
     Route::get('/subjects', [AdminSubject::class, 'index'])->name('subjects.index');

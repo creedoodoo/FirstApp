@@ -60,19 +60,19 @@
 <div class="card" style="position: sticky; top: 72px; z-index: 900; background: #FFFFFF; border-left: 4px solid var(--color-brand); margin-bottom: 1.5rem; box-shadow: var(--shadow-md);">
     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
         <!-- Live Counter -->
-        <div style="display: flex; align-items: center; gap: 1.25rem;">
-            <div>
-                <span id="counter-marked" style="font-size: 1.25rem; font-weight: 800; color: var(--color-brand);">{{ $markedCount }}/{{ $totalStudents }}</span>
-                <span style="font-size: 0.8125rem; color: var(--color-muted); font-weight: 600; margin-left: 0.25rem;">Marked</span>
+        <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+            <div style="display: inline-flex; align-items: center; gap: 0.4rem; background: var(--color-brand-light); padding: 0.35rem 0.85rem; border-radius: 50px; line-height: 1;">
+                <span id="counter-marked" style="font-size: 1.125rem; font-weight: 800; color: var(--color-brand);">{{ $markedCount }}/{{ $totalStudents }}</span>
+                <span style="font-size: 0.8125rem; color: var(--color-brand); font-weight: 700;">Marked</span>
             </div>
-            <div style="font-size: 0.8125rem; color: var(--color-muted);">
-                <span id="count-unmarked" style="color: {{ $unmarkedCount > 0 ? '#DC2626' : '#10B981' }}; font-weight: 700;">{{ $unmarkedCount }}</span> Unmarked
+            <div id="unmarked-pill" style="display: inline-flex; align-items: center; gap: 0.35rem; background: {{ $unmarkedCount > 0 ? '#FEF2F2' : '#F0FDF4' }}; padding: 0.35rem 0.85rem; border-radius: 50px; border: 1px solid {{ $unmarkedCount > 0 ? '#FCA5A5' : '#BBF7D0' }}; font-size: 0.8125rem; font-weight: 700; color: {{ $unmarkedCount > 0 ? '#DC2626' : '#16A34A' }}; line-height: 1;">
+                <span id="count-unmarked">{{ $unmarkedCount }}</span> Unmarked
             </div>
-            <div style="font-size: 0.8125rem; color: var(--color-muted); display: flex; gap: 0.75rem;">
-                <span style="color: #059669; font-weight: 600;">P: <strong id="count-present">{{ $presentCount }}</strong></span>
-                <span style="color: #D97706; font-weight: 600;">L: <strong id="count-late">{{ $lateCount }}</strong></span>
-                <span style="color: #DC2626; font-weight: 600;">A: <strong id="count-absent">{{ $absentCount }}</strong></span>
-                <span style="color: #0284C7; font-weight: 600;">E: <strong id="count-excused">{{ $excusedCount }}</strong></span>
+            <div style="display: inline-flex; align-items: center; gap: 0.75rem; background: #F8FAFC; padding: 0.35rem 0.85rem; border-radius: 50px; border: 1px solid var(--color-border); font-size: 0.8125rem; line-height: 1;">
+                <span style="color: #059669; font-weight: 700;">P: <strong id="count-present">{{ $presentCount }}</strong></span>
+                <span style="color: #D97706; font-weight: 700;">L: <strong id="count-late">{{ $lateCount }}</strong></span>
+                <span style="color: #DC2626; font-weight: 700;">A: <strong id="count-absent">{{ $absentCount }}</strong></span>
+                <span style="color: #0284C7; font-weight: 700;">E: <strong id="count-excused">{{ $excusedCount }}</strong></span>
             </div>
         </div>
 
@@ -107,29 +107,35 @@
 
 <!-- Attendance Sheet Table -->
 <div class="card" style="padding: 0; overflow: hidden;">
+    <div class="table-card-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(0,0,0,0.1); background: var(--color-brand-header); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+        <h3 style="font-size: 1.0625rem; font-weight: 700; color: var(--color-dark); margin: 0;">Attendance Roster</h3>
+        <span style="background: #FFFFFF; color: var(--color-brand); padding: 0.2rem 0.65rem; border-radius: 20px; font-weight: 700; font-size: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.12);">
+            {{ count($records) }} STUDENTS
+        </span>
+    </div>
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem;" id="attendance-table">
             <thead>
-                <tr style="background: #F8FAFC; border-bottom: 1px solid var(--color-border); color: var(--color-muted); font-size: 0.75rem; text-transform: uppercase;">
-                    <th style="padding: 0.875rem 1rem; width: 40px;">#</th>
-                    <th style="padding: 0.875rem 1rem;">Student Number</th>
-                    <th style="padding: 0.875rem 1rem;">Student Name</th>
-                    <th style="padding: 0.875rem 1rem; text-align: center;">Status Selector</th>
-                    <th style="padding: 0.875rem 1rem;">Time In / Left Early</th>
-                    <th style="padding: 0.875rem 1rem;">Remarks</th>
+                <tr style="background: #F8FAFC; border-bottom: 1px solid var(--color-border); color: var(--color-dark); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                    <th style="padding: 0.875rem 1rem; width: 40px; color: var(--color-dark); vertical-align: middle; text-align: center;">#</th>
+                    <th style="padding: 0.875rem 1rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Student Number</th>
+                    <th style="padding: 0.875rem 1rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Student Name</th>
+                    <th style="padding: 0.875rem 1rem; color: var(--color-dark); vertical-align: middle; text-align: center;">Status Selector</th>
+                    <th style="padding: 0.875rem 1rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Time In / Left Early</th>
+                    <th style="padding: 0.875rem 1rem; color: var(--color-dark); vertical-align: middle; text-align: left;">Remarks</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($records as $index => $rec)
                     @php $st = $rec->student; @endphp
                     <tr class="student-row" data-name="{{ strtolower($st->full_name) }}" data-number="{{ strtolower($st->student_number) }}" style="border-bottom: 1px solid #F1F5F9; background: {{ is_null($rec->status) ? '#FFFDF5' : '#FFFFFF' }};">
-                        <td style="padding: 0.875rem 1rem; color: var(--color-muted);">{{ $index + 1 }}</td>
-                        <td style="padding: 0.875rem 1rem; font-family: monospace; font-weight: 600;">
+                        <td style="padding: 0.875rem 1rem; color: var(--color-muted); vertical-align: middle; text-align: center;">{{ $index + 1 }}</td>
+                        <td style="padding: 0.875rem 1rem; font-family: monospace; font-weight: 600; vertical-align: middle; text-align: left;">
                             <a href="{{ route('teacher.students.show', $st->id) }}" style="color: inherit; text-decoration: none;" title="View Student History">
                                 {{ $st->student_number }}
                             </a>
                         </td>
-                        <td style="padding: 0.875rem 1rem; font-weight: 700; color: var(--color-dark);">
+                        <td style="padding: 0.875rem 1rem; font-weight: 700; color: var(--color-dark); vertical-align: middle; text-align: left;">
                             {{ $st->last_name }}, {{ $st->first_name }}
                         </td>
 
@@ -155,7 +161,7 @@
                         </td>
 
                         <!-- Time In & Left Early -->
-                        <td style="padding: 0.875rem 1rem; font-size: 0.8125rem;">
+                        <td style="padding: 0.875rem 1rem; font-size: 0.8125rem; vertical-align: middle; text-align: left;">
                             <span id="time-in-val-{{ $rec->id }}" style="font-weight: 600; color: #065F46;">
                                 {{ $rec->time_in ? $rec->time_in->format('g:i A') : '-' }}
                             </span>
@@ -168,7 +174,7 @@
                         </td>
 
                         <!-- Remarks -->
-                        <td style="padding: 0.875rem 1rem; font-size: 0.8125rem; color: var(--color-muted);" id="remarks-val-{{ $rec->id }}">
+                        <td style="padding: 0.875rem 1rem; font-size: 0.8125rem; color: var(--color-muted); vertical-align: middle; text-align: left;" id="remarks-val-{{ $rec->id }}">
                             {{ $rec->remarks ?? '-' }}
                         </td>
                     </tr>
@@ -309,7 +315,20 @@
 
                 // Update Live Counters
                 document.getElementById('counter-marked').innerText = `${data.marked}/${data.total}`;
-                document.getElementById('count-unmarked').innerText = data.unmarked;
+                const unmarkEl = document.getElementById('count-unmarked');
+                const unmarkPill = document.getElementById('unmarked-pill');
+                if (unmarkEl) unmarkEl.innerText = data.unmarked;
+                if (unmarkPill) {
+                    if (data.unmarked > 0) {
+                        unmarkPill.style.background = '#FEF2F2';
+                        unmarkPill.style.borderColor = '#FCA5A5';
+                        unmarkPill.style.color = '#DC2626';
+                    } else {
+                        unmarkPill.style.background = '#F0FDF4';
+                        unmarkPill.style.borderColor = '#BBF7D0';
+                        unmarkPill.style.color = '#16A34A';
+                    }
+                }
                 document.getElementById('count-present').innerText = data.present;
                 document.getElementById('count-late').innerText    = data.late;
                 document.getElementById('count-absent').innerText  = data.absent;

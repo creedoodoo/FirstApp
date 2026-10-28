@@ -10,22 +10,43 @@ use Illuminate\Http\Request;
 
 class ClassController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $userId = session('user_id');
         $user   = User::findOrFail($userId);
 
-        $classes = ClassModel::with('subject')
+        $viewMode = $request->query('view', 'active'); // 'active' or 'archived'
+
+        $activeClasses = ClassModel::with('subject')
             ->where('teacher_id', $user->id)
-            ->orderBy('is_archived')
+            ->where('is_archived', false)
             ->orderBy('day_of_week')
             ->orderBy('start_time')
             ->get();
 
+        $archivedClasses = ClassModel::with('subject')
+            ->where('teacher_id', $user->id)
+            ->where('is_archived', true)
+            ->orderBy('day_of_week')
+            ->orderBy('start_time')
+            ->get();
+
+        $archivedCount = $archivedClasses->count();
+        $classes = ($viewMode === 'archived') ? $archivedClasses : $activeClasses;
+
         $subjects = Subject::where('is_active', true)->orderBy('code')->get();
         $sections = config('attendance.sections', []);
 
-        return view('teacher.classes.index', compact('user', 'classes', 'subjects', 'sections'));
+        return view('teacher.classes.index', compact(
+            'user', 
+            'classes', 
+            'activeClasses', 
+            'archivedClasses', 
+            'archivedCount', 
+            'viewMode', 
+            'subjects', 
+            'sections'
+        ));
     }
 
     public function store(Request $request)
@@ -83,6 +104,6 @@ class ClassController extends Controller
         $class->save();
 
         $status = $class->is_archived ? 'archived' : 'restored';
-        return redirect()->back()->with('success', "Class has been {$status}.");
+        return redirect()->back()->with('success', "Class {$status} successfully.");
     }
 }

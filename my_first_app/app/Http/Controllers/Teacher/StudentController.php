@@ -57,22 +57,20 @@ class StudentController extends Controller
             'last_name'      => 'required|string|max:50|regex:/^[A-Za-z\s\-]+$/',
             'section'        => 'required|in:' . implode(',', $sections),
             'student_number' => ['required', 'string', 'unique:students,student_number', 'regex:' . $studentNumberRegex],
-            'photo'          => 'nullable|image|max:2048',
+            'photo'          => 'nullable|image|max:10240',
             'photo_webcam'   => 'nullable|string',
         ], [
             'first_name.regex'     => 'First name must contain letters, spaces, or hyphens only.',
             'last_name.regex'      => 'Last name must contain letters, spaces, or hyphens only.',
             'student_number.regex' => 'Student number must follow format 2024-00452-SR-0.',
+            'photo.max'            => 'Uploaded photo must not exceed 10MB in size.',
+            'photo.image'          => 'Uploaded file must be a valid image file (JPG, PNG, WebP).',
         ]);
 
         $photoPath = null;
 
-        // Handle File Upload
-        if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('students', 'public');
-        } 
-        // Handle Webcam Base64 Capture
-        elseif ($request->filled('photo_webcam')) {
+        // Prioritize Cropped Image or Camera Capture
+        if ($request->filled('photo_webcam')) {
             $base64Image = $request->photo_webcam;
             if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
                 $data = substr($base64Image, strpos($base64Image, ',') + 1);
@@ -84,6 +82,10 @@ class StudentController extends Controller
                     $photoPath = $fileName;
                 }
             }
+        }
+        // Handle Direct File Upload (if no crop or webcam was applied)
+        elseif ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('students', 'public');
         }
 
         $student = Student::create([

@@ -42,6 +42,6 @@ class SubjectController extends Controller
         $subject->save();
 
         $status = $subject->is_active ? 'activated' : 'deactivated';
-        return redirect()->back()->with('success', "Subject {$subject->code} has been {$status}.");
+        return redirect()->back()->with('success', "Subject {$subject->code} {$status} successfully.");
     }
 }
