@@ -93,6 +93,7 @@
         .branding-content {
             position: relative;
             z-index: 2;
+            text-align: left;
         }
 
         .organic-shape {
@@ -200,11 +201,13 @@
         .brand-logo-large {
             display: flex;
             align-items: center;
+            justify-content: flex-start;
             gap: 0.75rem;
             font-size: 2.25rem;
             font-weight: 700;
             letter-spacing: -0.02em;
             margin-bottom: 1rem;
+            text-align: left;
         }
 
         .brand-icon-large {
@@ -232,8 +235,9 @@
             font-size: 1.125rem;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.95);
-            max-width: 400px;
+            max-width: 420px;
             line-height: 1.6;
+            text-align: left;
         }
 
         /* Right Panel - Auth Forms */
