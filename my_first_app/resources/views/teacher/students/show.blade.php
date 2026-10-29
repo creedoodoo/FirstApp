@@ -41,7 +41,7 @@
     <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-border); display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.875rem;">
         <div><strong>Total Classes Attended:</strong> {{ $totalClasses }}</div>
         <div><span style="color: #059669; font-weight: 700;">Present:</span> {{ $presentCount }}</div>
-        <div><span style="color: #D97706; font-weight: 700;">Late:</span> {{ $lateCount }}</div>
+        <div><span style="color: #a406d9; font-weight: 700;">Late:</span> {{ $lateCount }}</div>
         <div><span style="color: #DC2626; font-weight: 700;">Absent:</span> {{ $absentCount }}</div>
         <div><span style="color: #0284C7; font-weight: 700;">Excused:</span> {{ $excusedCount }}</div>
     </div>
