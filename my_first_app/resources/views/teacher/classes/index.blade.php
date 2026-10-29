@@ -87,6 +87,18 @@
                     </button>
                 @else
                     <button type="button" 
+                        onclick="openEditClassModal({
+                            id: {{ $c->id }},
+                            subject_id: {{ $c->subject_id }},
+                            section: '{{ $c->section }}',
+                            day_of_week: {{ $c->day_of_week }},
+                            start_time: '{{ date('H:i', strtotime($c->start_time)) }}',
+                            end_time: '{{ date('H:i', strtotime($c->end_time)) }}'
+                        })"
+                        style="padding: 0.55rem 0.875rem; background: #FFFFFF; color: var(--color-brand); border: 1px solid var(--color-brand); border-radius: var(--radius-md); font-weight: 600; font-size: 0.8125rem; cursor: pointer; transition: var(--transition);">
+                        Edit
+                    </button>
+                    <button type="button" 
                         onclick="window.openConfirmModal({
                             title: 'Archive Class',
                             message: 'Are you sure you want to archive {{ addslashes(optional($c->subject)->code) }} (Section {{ $c->section }})? It will be moved to your archived classes tab and hidden from active schedule.',
@@ -183,4 +195,78 @@
         </form>
     </div>
 </div>
+
+<!-- Edit Class Modal -->
+<div id="edit-class-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card" style="text-align: left; max-width: 500px;">
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem;">Edit Class Schedule</h3>
+
+        <form id="edit-class-form" action="" method="POST">
+            @csrf
+            @method('PUT')
+
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.35rem;">Subject</label>
+                <select name="subject_id" id="edit-subject-id" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                    @foreach($subjects as $sub)
+                        <option value="{{ $sub->id }}">{{ $sub->code }} - {{ $sub->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.35rem;">Section (BSIT 3rd Year Only)</label>
+                <select name="section" id="edit-section" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                    @foreach($sections as $sec)
+                        <option value="{{ $sec }}">{{ $sec }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.35rem;">Day of Week</label>
+                <select name="day_of_week" id="edit-day-of-week" required style="width: 100%; padding: 0.65rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                    <option value="1">Monday</option>
+                    <option value="2">Tuesday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                    <option value="6">Saturday</option>
+                    <option value="7">Sunday</option>
+                </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <label style="display: block; font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.35rem;">Start Time</label>
+                    <input type="time" name="start_time" id="edit-start-time" required style="width: 100%; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.35rem;">End Time</label>
+                    <input type="time" name="end_time" id="edit-end-time" required style="width: 100%; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);">
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 0.75rem;">
+                <button type="button" onclick="document.getElementById('edit-class-modal').style.display = 'none';" class="btn-neutral">Cancel</button>
+                <button type="submit" style="flex: 1; padding: 0.75rem 1rem; background: var(--color-brand); color: #FFF; border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer;">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+<script>
+    function openEditClassModal(data) {
+        const form = document.getElementById('edit-class-form');
+        form.action = `/teacher/classes/${data.id}`;
+        document.getElementById('edit-subject-id').value = data.subject_id;
+        document.getElementById('edit-section').value = data.section;
+        document.getElementById('edit-day-of-week').value = data.day_of_week;
+        document.getElementById('edit-start-time').value = data.start_time;
+        document.getElementById('edit-end-time').value = data.end_time;
+        document.getElementById('edit-class-modal').style.display = 'flex';
+    }
+</script>
 @endsection

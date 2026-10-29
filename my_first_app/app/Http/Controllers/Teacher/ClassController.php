@@ -95,6 +95,52 @@ class ClassController extends Controller
         return redirect()->route('teacher.classes.index')->with('success', $message);
     }
 
+    public function update(Request $request, $id)
+    {
+        $userId = session('user_id');
+        $class  = ClassModel::where('teacher_id', $userId)->findOrFail($id);
+
+        $sections = config('attendance.sections', []);
+
+        $request->validate([
+            'subject_id'  => 'required|exists:subjects,id',
+            'section'     => 'required|in:' . implode(',', $sections),
+            'day_of_week' => 'required|integer|min:1|max:7',
+            'start_time'  => 'required|date_format:H:i',
+            'end_time'    => 'required|date_format:H:i|after:start_time',
+        ]);
+
+        // Overlap check for this teacher (excluding this class)
+        $overlap = ClassModel::where('teacher_id', $userId)
+            ->where('id', '!=', $class->id)
+            ->where('is_archived', false)
+            ->where('day_of_week', $request->day_of_week)
+            ->where(function ($q) use ($request) {
+                $q->whereBetween('start_time', [$request->start_time, $request->end_time])
+                  ->orWhereBetween('end_time', [$request->start_time, $request->end_time])
+                  ->orWhere(function ($q2) use ($request) {
+                      $q2->where('start_time', '<=', $request->start_time)
+                         ->where('end_time', '>=', $request->end_time);
+                  });
+            })
+            ->exists();
+
+        $class->update([
+            'subject_id'  => $request->subject_id,
+            'section'     => $request->section,
+            'day_of_week' => $request->day_of_week,
+            'start_time'  => $request->start_time,
+            'end_time'    => $request->end_time,
+        ]);
+
+        $message = 'Class updated successfully!';
+        if ($overlap) {
+            $message .= ' Warning: This class time overlaps with another of your scheduled classes.';
+        }
+
+        return redirect()->route('teacher.classes.index')->with('success', $message);
+    }
+
     public function toggleArchive($id)
     {
         $userId = session('user_id');

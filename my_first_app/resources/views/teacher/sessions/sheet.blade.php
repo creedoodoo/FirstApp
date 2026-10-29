@@ -70,7 +70,7 @@
             </div>
             <div style="display: inline-flex; align-items: center; gap: 0.75rem; background: #F8FAFC; padding: 0.35rem 0.85rem; border-radius: 50px; border: 1px solid var(--color-border); font-size: 0.8125rem; line-height: 1;">
                 <span style="color: #059669; font-weight: 700;">P: <strong id="count-present">{{ $presentCount }}</strong></span>
-                <span style="color: #D97706; font-weight: 700;">L: <strong id="count-late">{{ $lateCount }}</strong></span>
+                <span style="color: #a406d9; font-weight: 700;">L: <strong id="count-late">{{ $lateCount }}</strong></span>
                 <span style="color: #DC2626; font-weight: 700;">A: <strong id="count-absent">{{ $absentCount }}</strong></span>
                 <span style="color: #0284C7; font-weight: 700;">E: <strong id="count-excused">{{ $excusedCount }}</strong></span>
             </div>
@@ -128,7 +128,7 @@
             <tbody>
                 @forelse($records as $index => $rec)
                     @php $st = $rec->student; @endphp
-                    <tr class="student-row" data-name="{{ strtolower($st->full_name) }}" data-number="{{ strtolower($st->student_number) }}" style="border-bottom: 1px solid #F1F5F9; background: {{ is_null($rec->status) ? '#FFFDF5' : '#FFFFFF' }};">
+                    <tr class="student-row" id="row-{{ $rec->id }}" data-name="{{ strtolower($st->full_name) }}" data-number="{{ strtolower($st->student_number) }}" style="border-bottom: 1px solid #F1F5F9; background: {{ is_null($rec->status) ? '#FFFDF5' : '#FFFFFF' }}; transition: background-color 0.25s ease;">
                         <td style="padding: 0.875rem 1rem; color: var(--color-muted); vertical-align: middle; text-align: center;">{{ $index + 1 }}</td>
                         <td style="padding: 0.875rem 1rem; font-family: monospace; font-weight: 600; vertical-align: middle; text-align: left;">
                             <a href="{{ route('teacher.students.show', $st->id) }}" style="color: inherit; text-decoration: none;" title="View Student History">
@@ -146,7 +146,7 @@
                                     Present
                                 </button>
 
-                                <button type="button" onclick="updateStatus({{ $rec->id }}, 'late')" id="btn-late-{{ $rec->id }}" style="padding: 0.4rem 0.75rem; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); background: {{ $rec->status === 'late' ? '#F59E0B' : 'transparent' }}; color: {{ $rec->status === 'late' ? '#FFF' : '#475569' }}; white-space: nowrap;">
+                                <button type="button" onclick="updateStatus({{ $rec->id }}, 'late')" id="btn-late-{{ $rec->id }}" style="padding: 0.4rem 0.75rem; border: none; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.75rem; cursor: pointer; transition: var(--transition); background: {{ $rec->status === 'late' ? '#a406d9' : 'transparent' }}; color: {{ $rec->status === 'late' ? '#FFF' : '#475569' }}; white-space: nowrap;">
                                     Late
                                 </button>
 
@@ -304,9 +304,15 @@
                 });
 
                 if (status === 'present') { btnPresent.style.background = '#10B981'; btnPresent.style.color = '#FFF'; }
-                if (status === 'late')    { btnLate.style.background = '#F59E0B'; btnLate.style.color = '#FFF'; }
+                if (status === 'late')    { btnLate.style.background = '#a406d9'; btnLate.style.color = '#FFF'; }
                 if (status === 'absent')  { btnAbsent.style.background = '#EF4444'; btnAbsent.style.color = '#FFF'; }
                 if (status === 'excused') { btnExcused.style.background = '#0284C7'; btnExcused.style.color = '#FFF'; }
+
+                // Turn row background into white signifying that student's attendance is now checked
+                const rowEl = document.getElementById(`row-${recordId}`);
+                if (rowEl) {
+                    rowEl.style.backgroundColor = status ? '#FFFFFF' : '#FFFDF5';
+                }
 
                 // Update Time In Text
                 if (data.time_in) {

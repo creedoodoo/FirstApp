@@ -26,6 +26,7 @@ Route::middleware(['role:teacher'])->prefix('teacher')->name('teacher.')->group(
     // Class Management
     Route::get('/classes', [TeacherClass::class, 'index'])->name('classes.index');
     Route::post('/classes', [TeacherClass::class, 'store'])->name('classes.store');
+    Route::match(['post', 'put'], '/classes/{class}', [TeacherClass::class, 'update'])->name('classes.update');
     Route::post('/classes/{class}/archive', [TeacherClass::class, 'toggleArchive'])->name('classes.archive');
 
     // Attendance Sessions

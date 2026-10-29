@@ -59,7 +59,7 @@
                         </td>
                         <td style="padding: 0.875rem 1.25rem; font-size: 0.8125rem; vertical-align: middle; text-align: left;">
                             <span style="color: #059669; font-weight: 600;">P: {{ $p }}</span> &bull; 
-                            <span style="color: #D97706; font-weight: 600;">L: {{ $l }}</span> &bull; 
+                            <span style="color: #a406d9; font-weight: 600;">L: {{ $l }}</span> &bull; 
                             <span style="color: #DC2626; font-weight: 600;">A: {{ $a }}</span> &bull; 
                             <span style="color: #0284C7; font-weight: 600;">E: {{ $e }}</span>
                         </td>
